@@ -1,0 +1,32 @@
+$r: '.dnd';
+
+#{$r} {
+  padding: 1rem;
+
+  &__list {
+    list-style: none;
+  }
+
+  &__item {
+    @include border($rad: 4px);
+    @include size($maxW: 30rem);
+    @include flex($wrap: nowrap);
+    @include font-text-l;
+    padding: 1rem 2rem;
+    user-select: none;
+  }
+
+  &__drop-wrap {
+    & + & {
+      margin-top: 8px;
+    }
+  }
+
+  &__drag-btn {
+    margin-right: 8px;
+    display: block;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: grab;
+  }
+}

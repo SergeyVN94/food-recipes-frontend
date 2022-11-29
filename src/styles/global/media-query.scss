@@ -1,0 +1,56 @@
+@import './variables.scss';
+
+// Media Query Sizes
+@mixin media-only-phone {
+  @media screen and (max-width: #{$mqw-mobile}) {
+    @content;
+  }
+}
+
+@mixin media-tablet {
+  @media screen and (max-width: #{$mqw-tablet}) {
+    @content;
+  }
+}
+
+@mixin media-only-tablet {
+  @media screen and (min-width: #{$mqw-mobile + 1}) and (max-width: #{$mqw-tablet}) {
+    @content;
+  }
+}
+
+@mixin media-laptop {
+  @media screen and (max-width: #{$mqw-laptop}) {
+    @content;
+  }
+}
+
+@mixin media-only-laptop {
+  @media screen and (min-width: #{$mqw-tablet + 1}) and (max-width: #{$mqw-laptop}) {
+    @content;
+  }
+}
+
+@mixin media-desktop {
+  @media screen and (max-width: #{$mqw-desktop}) {
+    @content;
+  }
+}
+
+@mixin media-only-desktop {
+  @media screen and (min-width: #{$mqw-laptop + 1}) and (max-width: #{$mqw-desktop}) {
+    @content;
+  }
+}
+
+@mixin media-desktop-plus {
+  @media screen and (max-width: #{$mqw-desktop-plus}) {
+    @content;
+  }
+}
+
+@mixin media-only-desktop-plus {
+  @media screen and (min-width: #{$mqw-desktop + 1}) and (max-width: #{$mqw-desktop-plus}) {
+    @content;
+  }
+}

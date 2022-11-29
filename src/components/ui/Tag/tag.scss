@@ -1,0 +1,41 @@
+$r: '.tag';
+
+#{$r} {
+  @include flex($dsp: inline-flex, $wrap: nowrap, $align: center);
+  @include border($color: transparent, $rad: 4px);
+  @include font-text-s;
+  padding: 2px 4px 2px 8px;
+  background-color: $color_ui-02;
+  cursor: default;
+  transition: border-color $animation-time ease;
+  color: $color_text-01;
+
+  &:hover {
+    border-color: $color_interactive;
+  }
+
+  &_warning {
+    background-color: #FC575933;
+    color: $color_danger;
+
+    &:hover {
+      border-color: $color_danger;
+    }
+  }
+
+  &__btn-close {
+    @include reset-button;
+    margin-left: 4px;
+    color: $color_text-01;
+    cursor: pointer;
+    transition: color $animation-time ease;
+
+    #{$r}:hover & {
+      color: $color_interactive;
+    }
+
+    #{$r}_warning:hover & {
+      color: $color_danger;
+    }
+  }
+}

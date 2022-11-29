@@ -1,0 +1,28 @@
+.ui-kit {
+  &__nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 1.5rem 2.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid $color_interactive;
+
+    @include media-only-phone {
+      padding: 20px;
+    }
+
+    &-link {
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      background-color: $color_interactive;
+      color: $color_text-contrast;
+      text-decoration: none;
+      margin: 0.25rem;
+      cursor: pointer;
+
+      &_current {
+        background-color: $color_success;
+      }
+    }
+  }
+}

@@ -1,0 +1,147 @@
+// ****** Медиа запросы ******
+@import './media-query.scss';
+
+// ****** Общие миксины ******
+
+@mixin size(
+  $w: false,
+  $h: false,
+  $wh: false,
+  $maxW: false,
+  $minW: false,
+  $maxH: false,
+  $minH: false,
+  $maxWH: false,
+  $minWH: false,
+) {
+  @if ($wh) {
+    width: $wh;
+    height: $wh;
+  }
+  
+  @if ($w) {
+    width: $w;
+  }
+
+  @if ($h) {
+    height: $h;
+  }
+  
+  @if ($maxW) {
+    max-width: $maxW;
+  }
+
+  @if ($minW) {
+    min-width: $minW;
+  }
+
+  @if ($maxH) {
+    max-height: $maxH;
+  }
+
+  @if ($minH) {
+    min-height: $minH;
+  }
+
+  @if ($minWH) {
+    min-width: $minWH;
+    min-height: $minWH;
+  }
+
+  @if ($maxWH) {
+    max-width: $maxWH;
+    max-height: $maxWH;
+  }
+}
+
+@mixin flex($dsp: flex, $dir: row, $wrap: wrap, $align: center, $justify: flex-start) {
+  display: $dsp;
+  flex-direction: $dir;
+  flex-wrap: $wrap;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+@mixin border(
+  $w: 1px,
+  $style: solid,
+  $color: black,
+  $rad: false,
+  $pos: false,
+) {
+  @if ($pos) {
+    border-#{$pos}-width: $w;
+  } @else {
+    border-width: $w;
+  }
+
+  @if ($pos) {
+    border-#{$pos}-style: $style;
+  } @else {
+    border-style: $style;
+  }
+
+  @if ($pos) {
+    border-#{$pos}-color: $color;
+  } @else {
+    border-color: $color;
+  }
+
+  @if ($rad) {
+    border-radius: $rad;
+  }
+}
+
+@mixin animation-rotate($degree: 45deg, $time: $animation-time) {
+  transform: rotate($degree);
+  transition: transform $time;
+}
+
+@mixin form-layout {
+  @extend %form-layout;
+  @include size($w: 400px, $maxW: 100%);
+  padding: 40px;
+
+  @include media-only-phone {
+    max-width: 100%;
+  }
+}
+
+@mixin reset-button {
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+}
+
+@mixin position($pos: false, $trbl: false, $t: false, $r: false, $b: false, $l: false, $z: false) {
+  @if ($pos) {
+    position: $pos;
+  }
+
+  @if ($trbl) {
+    top: $trbl;
+    right: $trbl;
+    bottom: $trbl;
+    left: $trbl;
+  }
+
+  @if ($t) {
+    top: $t;
+  }
+
+  @if ($r) {
+    right: $r;
+  }
+
+  @if ($b) {
+    bottom: $b;
+  }
+
+  @if ($l) {
+    left: $l;
+  }
+
+  @if ($z) {
+    z-index: $z;
+  }
+}

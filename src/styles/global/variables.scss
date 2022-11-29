@@ -1,0 +1,95 @@
+// ***** Брекпоинты *****
+$mqw-mobile: 375px;
+$mqw-tablet: 768px;
+$mqw-laptop: 1024px;
+$mqw-desktop: 1256px;
+$mqw-desktop-plus: 1440px;
+
+// ***** пути *****
+$pathToFonts: 'assets/fonts';
+
+// ***** Анимация *****
+$animation-time: 0.2s;
+$animation-time-secondary: 0.5s;
+$spinner-rotate-time: 0.8s;
+
+// ***** Z-indexes *****
+$z-index-base: 10;
+$z-index-middle: 100;
+$z-index-top: 1000;
+$z-index-additional-layouts: 3000;
+$z-index-modal-items: 5000;
+
+// ***** отступы *****
+$spacing_ver-thick: 2px;
+$spacing_ver-half-small: 4px;
+$spacing_ver-smaller: 6px;
+$spacing_ver-small: 8px;
+$spacing_ver-half-medium: 12px;
+$spacing_ver-medium: 16px;
+$spacing_ver-large: 24px;
+$spacing_ver-extra-large: 32px;
+$spacing_ver-largest: 40px;
+
+// ***** цвета *****
+$colors: (
+  'ui-background': var(--color_ui-background),
+  'ui-01': var(--color_ui-01),
+  'ui-01-interactive': var(--color_ui-01-interactive),  
+  'ui-02': var(--color_ui-02),
+  'ui-03': var(--color_ui-03),
+  'ui-04': var(--color_ui-04),
+  'text-01': var(--color_text-01),
+  'text-02': var(--color_text-02),
+  'text-contrast': var(--color_text-contrast),
+  'text-danger': var(--color_text-danger),
+  'interactive': var(--color_interactive),
+  'interactive_hover': var(--color_interactive_hover),
+  'interactive_pressed': var(--color_interactive_pressed),
+  'danger': var(--color_danger),
+  'danger_hover': var(--color_danger_hover),
+  'danger_pressed': var(--color_danger_pressed),
+  'notify': var(--color_notify),
+  'notify_hover': var(--color_notify_hover),
+  'notify_pressed': var(--color_notify_pressed),
+  'success': var(--color_success),
+  'success_hover': var(--color_success_hover),
+  'success_pressed': var(--color_success_pressed),
+  'overlay': var(--color_overlay),
+  'brand-vk': var(--color_brand-vk),
+  'brand-facebook': var(--color_brand-facebook),
+  'brand-twitter': var(--color_brand-twitter),
+  'brand-ok': var(--color_brand-ok),
+  'brand-telegram': var(--color_brand-telegram)
+);
+
+$color_ui-background: var(--color_ui-background);
+$color_ui-01: var(--color_ui-01);
+$color_ui-01-interactive: var(--color_ui-01-interactive);  
+$color_ui-02: var(--color_ui-02);
+$color_ui-03: var(--color_ui-03);
+$color_ui-04: var(--color_ui-04);
+$color_text-01: var(--color_text-01);
+$color_text-02: var(--color_text-02);
+$color_text-contrast: var(--color_text-contrast);
+$color_text-danger: var(--color_text-danger);
+$color_interactive: var(--color_interactive);
+$color_interactive_hover: var(--color_interactive_hover);
+$color_interactive_pressed: var(--color_interactive_pressed);
+$color_danger: var(--color_danger);
+$color_danger_hover: var(--color_danger_hover);
+$color_danger_pressed: var(--color_danger_pressed);
+$color_notify: var(--color_notify);
+$color_notify_hover: var(--color_notify_hover);
+$color_notify_pressed: var(--color_notify_pressed);
+$color_success: var(--color_success);
+$color_success_hover: var(--color_success_hover);
+$color_success_pressed: var(--color_success_pressed);
+$color_overlay: var(--color_overlay);
+$color_brand-vk: var(--color_brand-vk);
+$color_brand-facebook: var(--color_brand-facebook);
+$color_brand-twitter: var(--color_brand-twitter);
+$color_brand-ok: var(--color_brand-ok);
+$color_brand-telegram: var(--color_brand-telegram);
+
+

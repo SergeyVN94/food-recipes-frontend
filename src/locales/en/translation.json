@@ -1,0 +1,33 @@
+{
+  "main-page-title": "Main page title",
+  "buttons": {
+    "addMaterial": "Add material"
+  },
+  "pages": {
+    "auth": {
+      "forms": {
+        "login": {
+          "title": "Login",
+          "btnSubmit": "Login",
+          "linkPassReset": "Forgot your password?",
+          "inputEmailLabel": "Email",
+          "inputPasswordLabel": "Password",
+          "errors": {
+            "fieldReq": "Fill in the field!",
+            "accountNotFound": "An account with the specified email and password was not found. Check the entered data is correct and try again."
+          }
+        }
+      }
+    },
+    "materialEditor": {
+
+    },
+    "24hours": {
+      "title": "24 hours"
+    },
+    "404": {
+      "message": "You went to the wrong address.",
+      "linkToHome": "Go back to the main page"
+    }
+  }
+}

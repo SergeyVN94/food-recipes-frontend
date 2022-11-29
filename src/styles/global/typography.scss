@@ -1,0 +1,335 @@
+// ****** Шрифты ******
+
+// Пришлось вынести стили мобилок в миксины из шаблонов, т.к шаблоны не подключить в @media
+@mixin font-h-desktop-base {
+  font-family: 'IBM Plex Sans';
+  font-weight: 500;
+  letter-spacing: 0;
+  color: $color_text-01;
+}
+
+@mixin font-h1-mobile {
+  @include font-h-desktop-base;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+}
+
+@mixin font-h2-mobile {
+  @include font-h-desktop-base;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+}
+
+@mixin font-h3-mobile {
+  @include font-h-desktop-base;
+  font-size: 1rem;
+  line-height: 1.25rem;
+}
+
+@mixin font-h4-mobile {
+  @include font-h-desktop-base;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+@mixin font-text-desktop-base {
+  font-family: 'IBM Plex Sans';
+  font-weight: 400;
+  letter-spacing: 0;
+  color: $color_text-01;
+}
+
+@mixin font-text-l-mobile {
+  @include font-text-desktop-base;
+  font-size: 0.9375rem;
+  line-height: 1.375rem;
+}
+
+@mixin font-text-m-mobile {
+  @include font-text-desktop-base;
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+}
+
+@mixin font-text-s-mobile {
+  @include font-text-desktop-base;
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+}
+
+@mixin font-quote-l-mobile {
+  @include font-text-desktop-base;
+  font-size: 1.25rem;
+  line-height: 1.625rem;
+}
+
+// Заголовки
+%font-h-desktop-base {
+  font-family: 'IBM Plex Sans';
+  font-weight: 500;
+  letter-spacing: 0;
+  color: $color_text-01;
+}
+
+%font-h1-desktop {
+  @extend %font-h-desktop-base;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+%font-h2-desktop {
+  @extend %font-h-desktop-base;
+  font-size: 1.875rem;
+  line-height: 2.375rem;
+}
+
+%font-h3-desktop {
+  @extend %font-h-desktop-base;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+%font-h4-desktop {
+  @extend %font-h-desktop-base;
+  font-size: 1rem;
+  line-height: 1.25rem;
+}
+
+%font-h1-mobile {
+  @include font-h1-mobile;
+}
+
+%font-h2-mobile {
+  @include font-h2-mobile;
+}
+
+%font-h3-mobile {
+  @include font-h3-mobile;
+}
+
+%font-h4-mobile {
+  @include font-h4-mobile;
+}
+
+// Обычный текст
+%font-text-desktop-base {
+  font-family: 'IBM Plex Sans';
+  font-weight: 400;
+  letter-spacing: 0;
+  color: $color_text-01;
+}
+
+%font-text-l-desktop {
+  @extend %font-text-desktop-base;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+%font-text-m-desktop {
+  @extend %font-text-desktop-base;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+%font-text-s-desktop {
+  @extend %font-text-desktop-base;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+%font-quote-l-desktop {
+  @extend %font-text-desktop-base;
+  font-size: 1.625rem;
+  line-height: 2.125rem;
+}
+
+%font-text-l-mobile {
+  @include font-text-l-mobile;
+}
+
+%font-text-m-mobile {
+  @include font-text-m-mobile;
+}
+
+%font-text-s-mobile {
+  @include font-text-s-mobile;
+}
+
+%font-quote-l-mobile {
+  @include font-quote-l-mobile;
+}
+
+// Служебный текст
+%font-btn-m {
+  @extend %font-text-desktop-base;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: $color_text-contrast;
+}
+
+%font-btn-s {
+  @extend %font-text-desktop-base;
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: $color_text-contrast;
+}
+
+%font-label {
+  @extend %font-text-desktop-base;
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+}
+
+// ******* Миксины, которые используются в других файлах
+
+@mixin font-h1-desktop {
+  @extend %font-h1-desktop;
+}
+
+@mixin font-h2-desktop {
+  @extend %font-h2-desktop;
+}
+
+@mixin font-h3-desktop {
+  @extend %font-h3-desktop;
+}
+
+@mixin font-h4-desktop {
+  @extend %font-h4-desktop;
+}
+
+@mixin font-text-l-desktop {
+  @extend %font-text-l-desktop;
+}
+
+@mixin font-text-m-desktop {
+  @extend %font-text-m-desktop;
+}
+
+@mixin font-text-s-desktop {
+  @extend %font-text-s-desktop;
+}
+
+@mixin font-quote-l-desktop {
+  @extend %font-quote-l-desktop;
+}
+
+@mixin font-h1($color: false) {
+  @extend %font-h1-desktop;
+  @if ($color) {
+    color: $color;
+  }
+
+  @include media-only-phone {
+    @include font-h1-mobile;
+    @if ($color) {
+      color: $color;
+    }
+  }
+}
+
+@mixin font-h2($color: false) {
+  @extend %font-h2-desktop;
+  @if ($color) {
+    color: $color;
+  }
+
+  @include media-only-phone {
+    @include font-h2-mobile;
+    @if ($color) {
+      color: $color;
+    }
+  }
+}
+
+@mixin font-h3($color: false) {
+  @extend %font-h3-desktop;
+  @if ($color) {
+    color: $color;
+  }
+
+  @include media-only-phone {
+    @include font-h3-mobile;
+    @if ($color) {
+      color: $color;
+    }
+  }
+}
+
+@mixin font-h4($color: false) {
+  @extend %font-h4-desktop;
+
+  @include media-only-phone {
+    @include font-h4-mobile;
+  }
+}
+
+@mixin font-text-l($color: false) {
+  @extend %font-text-l-desktop;
+  @if ($color) {
+    color: $color;
+  }
+
+  @include media-only-phone {
+    @include font-text-l-mobile;
+    @if ($color) {
+      color: $color;
+    }
+  }
+}
+
+@mixin font-text-m($color: false) {
+  @extend %font-text-m-desktop;
+  @if ($color) {
+    color: $color;
+  }
+  
+  @include media-only-phone {
+    @include font-text-m-mobile;
+    @if ($color) {
+      color: $color;
+    }
+  }
+}
+
+@mixin font-text-s($color: false) {
+  @extend %font-text-s-desktop;
+  @if ($color) {
+    color: $color;
+  }
+
+  @include media-only-phone {
+    @include font-text-s-mobile;
+    @if ($color) {
+      color: $color;
+    }
+  }
+}
+
+@mixin font-quote-l($color: false) {
+  @extend %font-quote-l-desktop;
+  @if ($color) {
+    color: $color;
+  }
+
+  @include media-only-phone {
+    @include font-quote-l-mobile;
+    @if ($color) {
+      color: $color;
+    }
+  }
+}
+
+@mixin font-btn-m {
+  @extend %font-btn-m;
+}
+
+@mixin font-btn-s {
+  @extend %font-btn-s;
+}
+
+@mixin font-label {
+  @extend %font-label;
+}

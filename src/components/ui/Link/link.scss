@@ -1,0 +1,26 @@
+.link {
+  @include font-text-m-desktop;
+  color: $color_interactive;
+  text-decoration: none;
+  position: relative;
+  display: inline;
+
+  &:hover {
+    @include border($w: 1px, $color: $color_interactive_hover, $pos: 'bottom');
+  }
+
+  // &:hover::after {
+  //   opacity: 1;
+  // }
+  
+  // &::after {
+  //   @include size($w: 100%, $h: 1px);
+  //   content: '';
+  //   position: absolute;
+  //   background-color: $color_interactive;
+  //   left: 0;
+  //   bottom: 0;
+  //   opacity: 0;
+  //   transition: opacity $animation-time;
+  // }
+}

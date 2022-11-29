@@ -1,0 +1,32 @@
+$root: '.input-label';
+
+#{$root} {
+  @include font-text-m-desktop;
+  transition: font-size $animation-time;
+
+  &_pressed {
+    @include font-label;
+    color: $color_text-02;
+    transition: font-size $animation-time;
+  }
+
+  &__text {
+    #{$root}_required & {
+      &::after {
+        content: '*';
+        display: inline-block;
+        margin-left: 2px;
+        color: $color_text-danger;
+      }
+    }
+  }
+
+  &__char-limit {
+    display: inline-block;
+    margin-left: 2px;
+
+    #{$root}_char-limit-error & {
+      color: $color_text-danger;
+    }
+  }
+}

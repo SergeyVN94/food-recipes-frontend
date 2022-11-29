@@ -1,0 +1,30 @@
+$root: '.button';
+
+#{$root} {
+  @import './icons.scss';
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+  
+  &[href] {
+    display: inline-block;
+  }
+
+  &_full-width {
+    @include size($w: 100%);
+    display: block;
+  }
+  
+  &__inner {
+    @import './inner.scss';
+    @include flex($wrap: nowrap, $justify: center);
+    transition: background-color $animation-time;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  &__text {
+    @include font-btn-m;
+    color: $color_text-contrast;
+  }
+}

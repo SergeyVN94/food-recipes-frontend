@@ -1,0 +1,45 @@
+@import 'styles/global/variables.scss';
+
+$r: '.ui-kit-colors';
+
+#{$r} {
+  padding: 0 20px;
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem -0.5rem 0.5rem 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    background: #E3E3E3;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 0;
+    width: 200px;
+    margin-right: 1rem;
+  }
+
+  &__color-round {
+    border: 1px solid #000000b3;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+
+    @each $name, $value in $colors {
+      #{$r}__item[data-color="#{$name}"] & {
+        background-color: $value;
+      } 
+    }
+  }
+  
+  &__color-var {
+    margin: 1rem 0 0;
+    font-size: 1rem;
+    line-height: 1rem;
+    max-width: 200px;
+  }
+}

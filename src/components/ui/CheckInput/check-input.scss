@@ -1,0 +1,142 @@
+$r: '.check-input';
+
+#{$r} {
+  &__label {
+    @include flex($wrap: nowrap);
+    display: inline-flex;
+    cursor: pointer;
+
+    #{$r}_disabled & {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__input {
+    @extend %visual-hidden;
+  }
+
+  &__checkbox {
+    @include size($wh: 18px);
+    @include border($color: $color_ui-03, $rad: 2px);
+    background-color: $color_ui-background;
+    transition: background-color $animation-time, border-color $animation-time;
+
+    &-icon {
+      @include size($wh: 16px);
+      @include flex($justify: center);
+      opacity: 0;
+      transition: opacity $animation-time;
+    }
+
+    #{$r}__label:hover & {
+      background-color: $color_ui-01;
+    }
+
+    #{$r}_checked & {
+      background-color: $color_interactive;
+      border-color: transparent;
+      transition: background-color $animation-time, border-color $animation-time;
+
+      &-icon {
+        opacity: 1;
+        transition: opacity $animation-time;
+      }
+    }
+
+    #{$r}_checked #{$r}__label:hover & {
+      background-color: $color_interactive-hover;
+      transition: background-color $animation-time;
+    }
+  }
+  
+  &__switch {
+    @include size($w: 40px, $h: 24px);
+    position: relative;
+    border-radius: 15.5px;
+    background-color: $color_ui-04;
+    transition: background-color $animation-time;
+
+    $indent: 2.5px; // отступ кружка от краев контейнера
+    $circleW: 24px - ($indent * 2);
+
+    &::before {
+      @include size($wh: $circleW);
+      @include position($pos: absolute, $trbl: $indent, $r: auto);
+      @include border($w: 0.5px, $color: rgba(0, 0, 0, 0.1), $rad: 50%);
+      content: '';
+      display: block;
+      background-color: $color_ui-background;
+      box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.0510643), 0px 2px 2px rgba(0, 0, 0, 0.1), 0px 3px 3px rgba(0, 0, 0, 0.05);
+      transition: left $animation-time;
+    }
+
+    #{$r}__label:hover & {
+      background-color: $color_ui-03;
+    }
+
+    #{$r}_checked & {
+      background-color: $color_interactive;
+      transition: background-color $animation-time;
+
+      &::before {
+        left: 40px - ($circleW + $indent);
+        transition: left $animation-time;
+      }
+    }
+
+    #{$r}_checked #{$r}__label:hover & {
+      background-color: $color_interactive-hover;
+    }
+  }
+
+  &__radio {
+    @include size($wh: 18px);
+    @include border($color: $color_ui-03, $rad: 50%);
+    @include flex($justify: center);
+    background-color: $color_ui-background;
+    transition: background-color $animation-time, border-color $animation-time;
+
+    &::before {
+      @include size($wh: 9px);
+      content: '';
+      display: block;
+      border-radius: 50%;
+      background-color: $color_ui-background;
+      opacity: 0;
+      transition: opacity $animation-time;
+    }
+
+    #{$r}__label:hover & {
+      background-color: $color_ui-03;
+      transition: background-color $animation-time;
+    }
+
+    #{$r}_checked & {
+      background-color: $color_interactive;
+      border-color: transparent;
+      transition: background-color $animation-time, border-color $animation-time;
+
+      &::before {
+        opacity: 1;
+        transition: opacity $animation-time;
+      }
+    }
+
+    #{$r}_checked #{$r}__label:hover & {
+      background-color: $color_interactive-hover;
+      border-color: transparent;
+      transition: background-color $animation-time, border-color $animation-time;
+    }
+  }
+
+  &__label-text {
+    @include font-text-s;
+    margin-left: 10px;
+    user-select: none;
+
+    #{$r}_view_switch & {
+      margin-left: 1rem;
+    }
+  }
+}

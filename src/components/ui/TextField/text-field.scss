@@ -1,0 +1,73 @@
+$root: '.text-field';
+
+#{$root} {
+  
+  &__container {
+    @include flex($wrap: nowrap);
+    background-color: $color_ui-01;
+    border-radius: 4px;
+    padding: 0 16px;
+    outline: 1px solid transparent;
+    outline-offset: -1px;
+    transition: outline-color $animation-time, background-color $animation-time;
+
+    #{$root}_focus & {
+      background-color: $color_ui-background;
+      outline-color: $color_interactive;
+    }
+
+    #{$root}_with-error & {
+      outline-color: $color_danger;
+    }
+  }
+
+  &__label {
+    position: absolute;
+    left: 0;
+    top: 6px;
+    transition: top $animation-time;
+
+    #{$root}_empty:not(#{$root}_focus) & {
+      top: 16px;
+    }
+  }
+
+  &__input-layout {
+    @include flex($dir: column, $wrap: nowrap, $align: flex-start);
+    @include size($w: 100%);
+    padding: 16px 0;
+    position: relative;
+    cursor: text;
+
+    #{$root}_with-label & {
+      padding: 24px 0 8px 0;
+    }
+
+    #{$root}_empty:not(#{$root}_focus) & {
+      padding: 16px 0;
+    }
+  }
+
+  &__input-wrapper {
+    @include size($w: 100%);
+    @include flex($wrap: nowrap);
+  }
+
+  &__input-button {
+    @include reset-button;
+    margin: 0 -4px 0 8px;
+    cursor: pointer;
+  }
+
+  &__input {
+    @include font-text-m;
+    @include size($w: 100%);
+    border: 0;
+    outline: 0;
+    background: transparent;
+  }
+
+  &__indent {
+    margin-top: 8px;
+  }
+}

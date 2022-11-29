@@ -1,0 +1,38 @@
+.svg-sprite {
+  visibility: hidden;
+
+  path {
+    transition: inherit;
+    transform: inherit;
+  }
+}
+
+.icon {
+  @include flex($justify: center);
+
+  &_color {
+    &_interactive {
+      color: $color_interactive;
+    }
+    
+    &_black {
+      color: $color_text-01;
+    }
+    
+    &_white {
+      color: #fff;
+    }
+    
+    &_gray {
+      color: $color_ui-03;
+    }
+    
+    &_danger {
+      color: $color_danger;
+    }
+    
+    &_light {
+      color: $color_ui-02;
+    }
+  }
+}

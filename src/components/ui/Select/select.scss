@@ -1,0 +1,195 @@
+$r: '.select';
+
+#{$r} {
+  position: relative;
+
+  &__head {
+    @include flex($wrap: nowrap);
+    @include border($color: transparent, $rad: 4px);
+    width: 100%;
+    background-color: $color_ui-01;
+    padding: 0 16px;
+    cursor: pointer;
+    transition: border-color $animation-time ease;
+
+    #{$r}_focus & {
+      border-color: $color_interactive;
+    }
+
+    #{$r}_with-error & {
+      border-color: $color_danger;
+    }
+  }
+
+  &__inner-wrap {
+    @include flex($wrap: nowrap);
+    flex: 1;
+    cursor: pointer;
+  }
+
+  &__main {
+    @include size($wh: 100%, $minH: 56px);
+    position: relative;
+    padding-bottom: 8px;
+  }
+
+  &__select {
+    @include position($pos: absolute, $t: -100px, $z: -9999);
+    opacity: 0;
+  }
+
+  &__label {
+    @include position($pos: absolute, $t: 50%);
+    transform: translateY(-50%);
+    transition: top $animation-time ease, transform $animation-time ease;
+
+    &_focus {
+      top: 4px;
+      transform: translateY(0%);
+    }
+  }
+
+  &__selected-items {
+    @include flex($align: flex-start);
+    list-style: none;
+    padding-top: 16px;
+    margin: -4px 0 0 -4px;
+
+    #{$r}_with-label & {
+      padding-top: 24px;
+    }
+  }
+
+  &__selected-item {
+    margin: 4px 0 0 4px;
+  }
+
+  &__search-input {
+    @include font-text-m;
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background-color: transparent;
+    display: none;
+
+    &_visible {
+      display: block;
+    }
+  }
+
+  &__body {
+    @include size($w: 100%, $maxH: 200px);
+    @include position($pos: absolute, $l: 0, $r: 0, $b: auto, $t: calc(100% + 4px), $z: 99);
+    list-style: none;
+    background-color: $color_ui-background;
+    overflow-x: hidden;
+    border-radius: 4px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.16);
+
+    &-enter-active {
+      display: block;
+      opacity: 0;
+      transform: translateY(-15px);
+      animation: body-show 0.2s ease 1ms;
+    }
+
+    &-enter-done {
+      display: block;
+      opacity: 1;
+      transform: translateY(0px);
+    }
+
+    &-exit-active {
+      animation: body-hide 0.2s ease 1ms;
+    }
+
+    &-exit-done {
+      display: none;
+      opacity: 0;
+      transform: translateY(-15px);
+    }
+  }
+
+  &__items-list-placeholder {
+    @include font-text-m;
+    padding: 8px 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: not-allowed;
+  }
+
+  &__dropdown-item {
+    @include font-text-m;
+    margin: 0;
+    padding: 8px 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    transition: background-color $animation-time ease;
+
+    &:hover {
+      background-color: $color_ui-04;
+    }
+
+    &_selected {
+      background-color: $color_ui-04;
+    }
+  }
+
+  &__icon {
+    &_type_expand {
+      @include size($wh: 16px);
+      transform: rotateZ(0deg);
+      transition: transform $animation-time ease;
+      cursor: pointer;
+    }
+    
+    &_expanded {
+      transform: rotateZ(-180deg);
+    }
+  }
+
+  &__button-icon {
+    &_action_clear {
+      @include reset-button;
+      padding: 8px;
+      cursor: pointer;
+      transition: color $animation-time ease;
+      color: $color_text-01;
+
+      &:hover {
+        color: $color_danger;
+      }
+    }
+
+    &_hidden {
+      display: none;
+    }
+  }
+}
+
+@keyframes body-show {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes body-hide {
+  from {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+}

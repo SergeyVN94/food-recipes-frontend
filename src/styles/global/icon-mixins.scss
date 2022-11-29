@@ -1,0 +1,72 @@
+@mixin icon($icon, $color: false, $colorSec: false) {
+  background-image: url('assets/images/icons/sprite.svg#sprite-icon-#{$icon}');
+  @include icon-color($color, $colorSec);
+}
+
+@mixin icon-color($color: false, $colorSec: false) {
+  @if ($color == 'interactive') {
+    $color: $color_interactive;
+  }
+  
+  @if ($color == 'black') {
+    $color: $color_text-01;
+  }
+
+  @if ($color == 'white') {
+    $color: #fff;
+  }
+
+  @if ($color == 'gray') {
+    $color: $color_ui-03;
+  }
+  
+  @if ($color == 'danger') {
+    $color: $color_danger;
+  }
+  
+  @if ($color == 'light') {
+    $color: $color_ui-02;
+  }
+
+  @if ($colorSec == 'interactive') {
+    $colorSec: $color_interactive;
+  }
+  
+  @if ($colorSec == 'black') {
+    $colorSec: $color_text-01;
+  }
+
+  @if ($colorSec == 'white') {
+    $colorSec: #fff;
+  }
+
+  @if ($colorSec == 'gray') {
+    $colorSec: $color_ui-03;
+  }
+  
+  @if ($colorSec == 'danger') {
+    $colorSec: $color_danger;
+  }
+  
+  @if ($colorSec == 'light') {
+    $colorSec: $color_ui-02;
+  }
+
+  @if ($color) {
+    .icon {
+      color: $color;
+    }
+  }
+  
+  @if ($colorSec) {
+    .icon {
+      fill: $colorSec;
+    }
+  }
+}
+
+@mixin icon-color-transition($time: $animation-time) {
+  .icon {
+    transition: all $time;
+  }
+}

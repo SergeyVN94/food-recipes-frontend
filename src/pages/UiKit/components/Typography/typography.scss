@@ -1,0 +1,78 @@
+@import 'styles/global/variables.scss';
+@import 'styles/global/templates.scss';
+
+$templates: (
+  'font-h1-desktop',
+  'font-h2-desktop',
+  'font-h3-desktop',
+  'font-h4-desktop',
+  'font-text-l-desktop',
+  'font-text-m-desktop',
+  'font-text-s-desktop',
+  'font-quote-l-desktop',
+  'font-btn-m',
+  'font-btn-s',
+  'font-label',
+  'font-h1-mobile',
+  'font-h2-mobile',
+  'font-h3-mobile',
+  'font-h4-mobile',
+  'font-text-l-mobile',
+  'font-text-m-mobile',
+  'font-text-s-mobile',
+  'font-quote-l-mobile',
+);
+
+.ui-kit-typography {
+  padding: 0 20px;
+
+  &__text-group {
+    padding: 1rem;
+
+    & + & {
+      border-top: 1px solid $color_overlay;
+    }
+
+    &-title {
+      @extend %font-h2-desktop;
+      margin-bottom: 2rem;
+    }
+
+    &-list {
+      list-style: none;
+    }
+
+    &-item {
+      & + & {
+        margin-top: 1.5rem;
+      }
+
+      &-title {
+        @extend %font-h3-desktop;
+        margin-bottom: 0.275rem;
+        border-left: 3px solid $color_notify;
+        padding-left: 0.625rem;
+        margin-left: -0.625rem;
+      }
+
+      &-template {
+        margin-bottom: 1rem;
+      }
+
+      &-example {
+        @each $t in $templates {
+          &[data-template='#{$t}'] {
+            @extend %#{$t};
+          }
+        }
+
+        &[data-template*='-btn-'] {
+          background-color: $color_interactive;
+          padding: 14px 32px;
+          border-radius: 4px;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

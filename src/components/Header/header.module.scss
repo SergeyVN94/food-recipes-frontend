@@ -1,0 +1,15 @@
+.header {
+  display: flex;
+  flex-wrap: nowrap;
+  border-bottom: 1px solid transparentize($color: #000000, $amount: 0.85);
+}
+
+.logo {
+  margin: 16px 16px 16px 0;
+  display: block;
+  @include size($wh: 40px);
+}
+
+.logo-img {
+  @include size($wh: 100%);
+}

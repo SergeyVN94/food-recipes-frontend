@@ -1,0 +1,54 @@
+$r: '.preloader';
+
+#{$r} {
+  @include flex;
+  @include size($wh: 0);
+  visibility: hidden;
+  z-index: 9999999;
+
+  &_container-pos {
+    &_fixed {
+      position: fixed;
+    }
+
+    &_absolute {
+      position: absolute;
+    }
+  }
+
+  &_visible {
+    visibility: visible;
+    @include size($wh: 100%);
+  }
+
+  &_bg-blur {
+    backdrop-filter: blur(4px);
+  }
+
+  &_position {
+    &_center {
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__image {
+    #{$r} & {
+      display: inline-flex;
+      animation-name: rotate;
+      animation-duration: $spinner-rotate-time;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

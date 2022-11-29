@@ -1,0 +1,5 @@
+.container-content {
+  @include size($w: 100%, $maxW: 1170px);
+  margin: 0 auto;
+  padding: 0 15px;
+}

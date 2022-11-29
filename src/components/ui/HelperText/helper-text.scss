@@ -1,0 +1,9 @@
+.helper-text {
+  @include flex($wrap: nowrap);
+
+  &__text {
+    @include font-text-s;
+    color: $color_danger;
+    margin-left: 0.5rem;
+  }
+}

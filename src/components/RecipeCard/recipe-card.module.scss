@@ -1,0 +1,36 @@
+.card {
+  display: block;
+}
+
+.image {
+  margin-right: 16px;
+  max-width: 13rem;
+  max-height: 13rem;
+}
+
+.text-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  &:hover .title {
+    color: #22222277;
+  }
+}
+
+.title {
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+.description {
+  margin: 16px 0 0;
+}

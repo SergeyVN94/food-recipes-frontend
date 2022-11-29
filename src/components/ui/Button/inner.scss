@@ -1,0 +1,114 @@
+&_size {
+  &_48 {
+    padding: 14px 32px;
+  }
+
+  &_40 {
+    padding: 10px 16px;
+  }
+
+  &_32 {
+    padding: 8px 12px;
+  }
+}
+
+&_color {
+  &_success {
+    outline-color: $color_success;
+    background-color: $color_success;
+
+    &:hover {
+      background-color: $color_success_hover;
+    }
+
+    &:active {
+      background-color: $color_success_pressed;
+    }
+
+    #{$root}_loading & #{$root}__text {
+      color: $color_success;
+    }
+  }
+
+  &_danger {
+    outline-color: $color_danger;
+    background-color: $color_danger;
+
+    &:hover {
+      background-color: $color_danger_hover;
+    }
+
+    &:active {
+      background-color: $color_danger_pressed;
+    }
+
+    #{$root}_loading & #{$root}__text {
+      color: $color_danger;
+    }
+  }
+
+  &_interactive {
+    outline-color: $color_interactive;
+    background-color: $color_interactive;
+
+    &:hover {
+      background-color: $color_interactive_hover;
+    }
+
+    &:active {
+      background-color: $color_interactive_pressed;
+    }
+
+    #{$root}_loading & #{$root}__text {
+      color: $color_interactive;
+    }
+  }
+
+  &_transparent {
+    background-color: transparent;
+  }
+}
+
+&_theme_secondary {
+  background-color: $color_ui-background;
+  outline: 1px solid $color_ui-03;
+  outline-offset: -1px;
+
+  &:hover {
+    background-color: $color_ui-01;
+  }
+
+  &:active {
+    background-color: $color_ui-04;
+  }
+
+  #{$root}__text {
+    color: $color_text-02;
+  }
+}
+
+#{$root}_loading & {
+  background-color: transparent;
+  outline-width: 1px;
+  outline-style: solid;
+  outline-offset: -1px;
+}
+
+#{$root}_disabled & {
+  background-color: $color_ui-04;
+  cursor: not-allowed;
+
+  #{$root}__text {
+    color: $color_text-contrast;
+  }
+}
+
+#{$root}[class$="-block"] & {
+  @include icon-color($color: 'gray');
+  @include icon-color-transition;
+}
+
+#{$root}[class$="-block"]:hover & {
+  @include icon-color($color: 'interactive');
+  @include icon-color-transition;
+}
