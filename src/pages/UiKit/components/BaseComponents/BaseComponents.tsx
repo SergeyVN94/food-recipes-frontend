@@ -191,7 +191,7 @@ const BaseComponents: React.FC = () => {
             <ComponentsGroup title='Инпуты'>
               <TextField
                 value={state.input1}
-                onChange={(_, value) => updateState('input1', value)}
+                onChange={value => updateState('input1', value)}
                 label='TextField'
                 charLimit={50}
                 charLimitError={state.input1.length === 0}
@@ -201,7 +201,7 @@ const BaseComponents: React.FC = () => {
               />
               <TextField
                 value={state.password}
-                onChange={(_, value) => updateState('password', value)}
+                onChange={value => updateState('password', value)}
                 label='TextField Password'
                 type='password'
                 charLimit={50}

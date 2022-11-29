@@ -57,6 +57,18 @@ $root: '.text-field';
     @include reset-button;
     margin: 0 -4px 0 8px;
     cursor: pointer;
+    
+    &_action_clear {
+      transition: color $animation-time ease;
+
+      &:hover {
+        color: $color_interactive;
+      }
+    }
+
+    &_hidden {
+      display: none;
+    }
   }
 
   &__input {

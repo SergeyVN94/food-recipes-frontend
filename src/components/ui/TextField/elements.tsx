@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import InputLabel from 'components/ui/InputLabel';
 import HelperText from 'components/ui/HelperText/HelperText';
-import Icon, { IconsType } from 'components/ui/Icon';
+import Icon from 'components/ui/Icon';
 
 const b = block('text-field');
 
@@ -50,28 +50,37 @@ export const HelperTextElement: React.FC<{ value: string }> = ({ value }) => (
   )
 );
 
-type InputButtonProps = {
-  onClick: (ev: React.MouseEvent) => void,
-  type: 'password' | 'clear';
+export const VisiblePassButton: React.FC<{
+  onClick: (nextState: boolean) => void,
   show: boolean; // показать/скрыть пароль
   visible?: boolean; // отображать кнопку
-};
-export const InputButton: React.FC<InputButtonProps> = ({
+}> = ({
   onClick,
-  type,
   show,
   visible = true,
-}) => {
-  let icon: IconsType = 'eye';
-  if (type === 'password') icon = show ? 'eye' : 'eye-closed';
+}) => (
+  <button
+    className={b('input-button', { action: 'pass-visible', hidden: !visible })}
+    onClick={ev => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      onClick(!visible);
+    }}
+    type='button'
+  >
+    <Icon color='interactive' icon={show ? 'eye' : 'eye-closed'} />
+  </button>
+);
 
-  return (
-    <button
-      className={b('input-button', { visible: type === 'clear' && visible })}
-      onClick={onClick}
-      type='button'
-    >
-      <Icon color='interactive' icon={icon} />
-    </button>
-  );
-};
+export const ClearButton: React.FC<{
+  onClick: () => void,
+  visible?: boolean; // отображать кнопку
+}> = ({ onClick, visible = true }) => (
+  <button
+    className={b('input-button', { action: 'clear', hidden: !visible })}
+    onClick={onClick}
+    type='button'
+  >
+    <Icon color='black' icon='close-circle' />
+  </button>
+);
