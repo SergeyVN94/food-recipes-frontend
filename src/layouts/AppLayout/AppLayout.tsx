@@ -3,21 +3,19 @@ import classNames from 'classnames/bind';
 
 import RootLayout from 'layouts/RootLayout';
 import Header from 'components/Header';
-import Footer from 'components/Footer';
 
 import { AppLayoutProps } from './types';
 import styles from './app-layout.module.scss';
 
 const cx = classNames.bind(styles);
 
-const AppLayout: FC<AppLayoutProps> = ({ children }) => (
-  <RootLayout>
-    <div className={styles.layout}>
+const AppLayout: FC<AppLayoutProps> = ({ children, title }) => (
+  <RootLayout title={title}>
+    <div className={cx('layout')}>
       <Header />
       <div className={cx('main')}>
         { children }
       </div>
-      <Footer />
     </div>
   </RootLayout>
 );

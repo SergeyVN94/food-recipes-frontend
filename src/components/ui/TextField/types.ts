@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface TextFieldProps {
   value: string;
   onChange: (value: string, name?: string) => void;

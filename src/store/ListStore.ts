@@ -41,16 +41,19 @@ class ListStore<K extends SERVICE_LIST_KEY> {
 
   get status(): LOADED_STATUS {
     if (this.loading) return LOADED_STATUS.LOADING;
-    if (!this.data && !this.error) return LOADED_STATUS.NOT_LOADED;
-    if (!this.data && this.error) return LOADED_STATUS.FAIL;
-    return LOADED_STATUS.SUCCESS;
+    if (this.error) return LOADED_STATUS.FAIL;
+    return this.data ? LOADED_STATUS.SUCCESS : LOADED_STATUS.NOT_LOADED;
   }
 
   getFetchFilter(): ListFilter<K> | null {
     return this.fetchItemsFilter;
   }
 
-  async fetchItems(filter?: ListFilter<K>, force = false) {
+  async fetchItems({ filter, force = false, appendToData }: {
+    filter?: ListFilter<K>;
+    force?: boolean;
+    appendToData?: boolean; // добавить данные к текущему массиву
+  } = {}) {
     if (!force && this.loading) return;
 
     this.fetchItemsFilter = filter ?? null;
@@ -59,7 +62,7 @@ class ListStore<K extends SERVICE_LIST_KEY> {
 
     const { data, error, metadata } = await this.listService.fetchItems(this.key, filter);
 
-    if (data) this.data = data;
+    if (data) this.data = appendToData ? _.concat(this.data ?? [], data) : data;
     this.error = error ?? null;
     this.metadata = metadata ?? null;
     this.loading = false;

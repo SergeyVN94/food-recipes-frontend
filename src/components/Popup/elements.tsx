@@ -24,11 +24,19 @@ export const PopupBtnClose: React.FC<{ onClick: () => void }> = ({ onClick }) =>
   />
 );
 
-export const PopupHead: React.FC<{ children?: React.ReactNode }> = ({ children }) => (<div className={b('head')}>{children}</div>);
-export const PopupTitle: React.FC<{ children?: React.ReactNode }> = ({ children }) => (<h3 className={b('title')}>{children}</h3>);
-export const PopupDescription: React.FC<{ children?: React.ReactNode }> = ({ children }) => (<div className={b('description')}>{children}</div>);
+export const PopupHead: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
+  <div className={b('head')}>{children}</div>
+);
+export const PopupTitle: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
+  <h3 className={b('title')}>{children}</h3>
+);
+export const PopupDescription: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
+  <div className={b('description')}>{children}</div>
+);
 export const PopupControl: React.FC<{ children?: React.ReactNode }> = ({ children = [] }) => {
-  const childElements = _.castArray(children).map(c => (<div className={b('control-item')} key={c?.toString()}>{c}</div>));
+  const childElements = _.castArray(children).map(c => (
+    <div className={b('control-item')} key={c?.toString()}>{c}</div>
+  ));
 
   return (<div className={b('control')}>{childElements}</div>);
 };

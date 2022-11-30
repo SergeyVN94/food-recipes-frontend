@@ -3,7 +3,6 @@ import _ from 'lodash';
 import { ListItemType, ListFilter, SERVICE_LIST_KEY } from 'types/listService';
 import { apiRequest } from 'services/utils';
 import { ServiceApiResponseWithData, ServiceApiResponse } from 'services/types';
-import { objectKeysToCamelCase, objectKeysToSnakeCase } from 'utils/common';
 
 import {
   getFullUrl,
@@ -17,15 +16,14 @@ class ListService {
     key: K,
     filter: ListFilter<K> = {},
   ): Promise<ServiceApiResponseWithData<ListItemType<K>[], unknown>> {
-    const { data, error, response } = await apiRequest({
+    const { data, error } = await apiRequest({
       method: 'GET',
       url: getFullUrl(key, filter),
     });
 
-    if (error) return ({ error, success: false, response });
+    if (error) return ({ error, success: false });
     if (!_.isObject(data)) {
       return ({
-        response,
         success: false,
         error: new Error('Invalid response data'),
       });
@@ -39,7 +37,6 @@ class ListService {
 
     if (!_.isArray(results)) {
       return ({
-        response,
         success: false,
         error: new Error('Invalid response data'),
       });
@@ -48,7 +45,6 @@ class ListService {
     const normalizedList = results.map(i => this.normalizeItemData<K>(key, i));
 
     return ({
-      response,
       metadata,
       success: true,
       data: normalizedList,

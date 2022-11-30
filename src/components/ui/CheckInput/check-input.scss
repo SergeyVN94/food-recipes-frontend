@@ -4,6 +4,7 @@ $r: '.check-input';
   &__label {
     @include flex($wrap: nowrap);
     display: inline-flex;
+    line-height: 0;
     cursor: pointer;
 
     #{$r}_disabled & {

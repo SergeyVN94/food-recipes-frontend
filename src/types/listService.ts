@@ -1,4 +1,4 @@
-import { AnyFilter, PaginationFilter, QueryFilter } from './service';
+import { PaginationFilter, QueryFilter } from './service';
 import { Recipe, RecipeIngredient } from './recipe';
 
 export enum SERVICE_LIST_KEY {
@@ -12,12 +12,11 @@ export type ListItemType<K extends SERVICE_LIST_KEY> = {
 }[K];
 
 export type ListFilter<K extends SERVICE_LIST_KEY> = {
-  [SERVICE_LIST_KEY.RECIPE]: AnyFilter
-  & PaginationFilter
-  & { ids?: Recipe['id'][] }
-  & QueryFilter;
-  [SERVICE_LIST_KEY.RECIPE_INGREDIENT]: AnyFilter
-  & PaginationFilter
-  & { ids?: RecipeIngredient['id'][] }
-  & QueryFilter;
+  [SERVICE_LIST_KEY.RECIPE]: {
+    ids?: Recipe['id'][];
+    slug?: Recipe['slug'][];
+  } & PaginationFilter & QueryFilter;
+  [SERVICE_LIST_KEY.RECIPE_INGREDIENT]: {
+    ids?: RecipeIngredient['id'][]
+  } & PaginationFilter & QueryFilter;
 }[K];

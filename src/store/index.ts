@@ -7,6 +7,7 @@ export const {
   recipesStore,
   authenticationStore,
   generalApiDataStore,
+  recipeIngredientsStore,
 } = rootStore;
 
 export const initMobx = () => {

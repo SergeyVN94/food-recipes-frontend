@@ -1,12 +1,7 @@
 .layout {
   @include size($wh: 100%);
+  @include flex($dir: column, $align: flex-start, $justify: flex-start, $wrap: nowrap);
 }
-
-.wrapper {
-  @include size($wh: 100%);
-  @include flex($wrap: nowrap, $align: flex-start);
-}
-
 
 .main {
   @include size($w: 100%);

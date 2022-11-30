@@ -1,12 +1,13 @@
 import React from 'react';
-import { RouteObject } from 'react-router-dom';
+import { Navigate, RouteObject } from 'react-router-dom';
 
 import Home from 'pages/Home';
+import Recipe from 'pages/Recipe';
 import { UiKit } from 'pages';
 
 export const routeMap: RouteObject[] = [
   { path: '/', element: <Home /> },
-  // { path: '/material-editor/:id', element: <MaterialEditor /> },
+  { path: '/recipe/:slug', element: <Recipe /> },
   // { path: '/24hours', element: <Hours24 /> },
   // { path: '/materials', element: <MaterialsList /> },
   // { path: '/publications-marks/:markType', element: <Directory /> },
@@ -18,5 +19,5 @@ export const routeMap: RouteObject[] = [
   // },
   // { path: '/menu/*', element: <SiteMenu /> },
   { path: '/ui-kit/*', element: <UiKit /> },
-  // { path: '*', element: <Navigate to='/24hours' /> },
+  { path: '*', element: <Navigate to='/' /> },
 ];

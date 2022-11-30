@@ -1,0 +1,8 @@
+.body {
+  margin-top: $spacing_ver-medium;
+  display: none;
+
+  &.visible {
+    display: block;
+  }
+}

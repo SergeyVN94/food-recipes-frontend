@@ -3,9 +3,8 @@
 }
 
 .image {
+  @include size($wh: auto, $minW: 13rem, $maxWH: 13rem);
   margin-right: 16px;
-  max-width: 13rem;
-  max-height: 13rem;
 }
 
 .text-content {

@@ -7,11 +7,20 @@ import { sleep } from 'utils';
 
 import { ApiRequestResult } from './types';
 
+import recipes from './recipes.json';
+
 export const apiRequest = async (
   requestConfig: AxiosRequestConfig,
   attempts = 3,
   timeout = 1000,
 ): Promise<ApiRequestResult> => {
+  if (requestConfig.url?.startsWith('/api/v1/recipe/')) {
+    return ({
+      data: { results: recipes },
+      success: true,
+    });
+  }
+
   for (let i = 1; i <= attempts; i += 1) {
     try {
       const headers = _.merge(
@@ -22,7 +31,7 @@ export const apiRequest = async (
       const response = await api({ ...requestConfig, headers });
       const data = _.get(response, 'data');
 
-      return ({ response, data, success: true });
+      return ({ data, success: true });
     } catch (err) {
       if (axios.isCancel(err)) return ({ success: false, cancel: true });
 
@@ -59,7 +68,6 @@ export const apiRequest = async (
 
       if (i === attempts) {
         return ({
-          response,
           error: resError,
           success: false,
         });

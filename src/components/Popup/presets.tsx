@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button } from 'components/ui';
+import Button from 'components/ui/Button';
 
 import Popup from './Popup';
 import {

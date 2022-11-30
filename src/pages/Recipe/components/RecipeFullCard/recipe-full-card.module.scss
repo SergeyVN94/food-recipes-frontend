@@ -1,0 +1,23 @@
+.title {
+  @include font-h1;
+}
+
+.top-image {
+  @include size($maxW: 720px, $wh: auto);
+  margin-top: $spacing_ver-small;
+}
+
+.description {
+  @include font-text-m;
+  margin-top: $spacing_ver-small;
+}
+
+.ingredients-title {
+  @include font-h3;
+  margin-top: $spacing_ver-medium;
+}
+
+.ingredients-list {
+  @include flex($align: flex-start);
+  list-style: none;
+}

@@ -6,7 +6,6 @@ import React, {
   useCallback,
 } from 'react';
 import { block } from 'bem-cn';
-import _ from 'lodash';
 
 import {
   HelperTextElement,

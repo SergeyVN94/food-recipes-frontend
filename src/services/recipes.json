@@ -1,27 +1,37 @@
 [
   {
-    "id": "buter",
+    "id": 0,
+    "slug": "buter",
     "title": "Бутер с колбасой и сыром",
-    "description": "Очень вкусный бутер к чаю"
+    "description": "Очень вкусный бутер к чаю",
+    "ingredients": []
   },
   {
-    "id": "chai-s-limonom",
+    "id": 1,
+    "slug": "chai-s-limonom",
     "title": "Чай с лимоном",
-    "description": "Вкусный чай с лимоном. Приятно пить зимними вечерами."
+    "description": "Вкусный чай с лимоном. Приятно пить зимними вечерами.",
+    "ingredients": []
   },
   {
-    "id": "ris-s-kotletami",
+    "id": 2,
+    "slug": "ris-s-kotletami",
     "title": "Рис с котлетами",
-    "description": "Рис с очень вкусными котлетами из отборной говядины. Идеальный выбор для 2 блюда на обед."
+    "description": "Рис с очень вкусными котлетами из отборной говядины. Идеальный выбор для 2 блюда на обед.",
+    "ingredients": []
   },
   {
-    "id": "sup-ribniy",
+    "id": 3,
+    "slug": "sup-ribniy",
     "title": "Суп рыбный",
-    "description": "Полезный и вкусный суп с рыбой."
+    "description": "Полезный и вкусный суп с рыбой.",
+    "ingredients": []
   },
   {
-    "id": "sup-kurinniy",
+    "id": 4,
+    "slug": "sup-kurinniy",
     "title": "Суп куриный",
-    "description": "Традиционный суп с курицей. Есть горячим!"
+    "description": "Традиционный суп с курицей. Есть горячим!",
+    "ingredients": []
   }
 ]

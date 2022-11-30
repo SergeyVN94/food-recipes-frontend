@@ -2,6 +2,7 @@ import { Image } from './image';
 
 export type RecipeIngredient = {
   id: number;
+  slug: string;
   name: string;
   description: string;
   images?: Image[];
@@ -16,6 +17,7 @@ export type RecipeStep = {
 
 export type Recipe = {
   id: number;
+  slug: string;
   title: string;
   description: string;
   images?: Image[];
