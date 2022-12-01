@@ -12,6 +12,13 @@ export function useCallbackDelay<T extends string | number>(
   }>({ timer: null, value: currentValue });
   current.value = currentValue;
 
+  useEffect(() => () => {
+    if (current.timer !== null) {
+      clearTimeout(current.timer);
+      current.timer = null;
+    }
+  }, [current]);
+
   useEffect(() => {
     if (current.value !== initialValue && current.timer) {
       clearTimeout(current.timer);

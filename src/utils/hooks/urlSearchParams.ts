@@ -1,27 +1,28 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import _ from 'lodash';
-import { parse, stringify } from 'query-string';
+import { parse, ParsedQuery, stringify } from 'query-string';
 import { MakeSearchParams, SearchParams, UseSearchParamsResult } from 'types/queryString';
 
 export function useSearchParams(): UseSearchParamsResult {
   const navigate = useNavigate();
   const { pathname, search } = useLocation();
-  const params = useMemo(() => parse(search, {
+  const paramsRef = useRef<ParsedQuery<string | number | boolean>>({});
+  paramsRef.current = useMemo(() => parse(search, {
     parseNumbers: true,
     parseBooleans: true,
     arrayFormat: 'comma',
   }), [search]);
 
   const setParams = useCallback((args: SearchParams | MakeSearchParams) => {
-    const currentParams = _.isFunction(args) ? args(params) : args;
+    const currentParams = _.isFunction(args) ? args(paramsRef.current) : args;
     const newSearch = stringify(currentParams, {
       skipEmptyString: true,
-      arrayFormat: 'comma', // '&foo=1,2,3' -> {foo: ['1', '2', '3']}
+      arrayFormat: 'comma',
     });
 
     navigate(`${pathname}${newSearch ? '?' : ''}${newSearch}`);
-  }, [navigate, pathname, params, pathname]);
+  }, [navigate, paramsRef, pathname]);
 
-  return [params, setParams];
+  return [paramsRef.current, setParams];
 }

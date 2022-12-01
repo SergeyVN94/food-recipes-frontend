@@ -1,4 +1,9 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, {
+  FC,
+  useState,
+  useEffect,
+  useCallback,
+} from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 
@@ -7,6 +12,7 @@ import Grid from 'components/ui/Grid';
 import TextField from 'components/ui/TextField';
 import RecipeList from 'components/RecipeList';
 import { useCallbackDelay } from 'utils/hooks/useCallbackDelay';
+import { useSearchParams } from 'utils/hooks/urlSearchParams';
 import { recipesStore } from 'store';
 import { LOADED_STATUS } from 'store/lib';
 
@@ -17,14 +23,18 @@ import styles from './home.module.scss';
 const cx = classNames.bind(styles);
 
 export const Home: FC<HomeProps> = observer(() => {
-  const [query, setQuery] = useState('');
-  const [search, setSearch] = useCallbackDelay<string>(setQuery, 500, query);
+  const [searchParams, setSearchParams] = useSearchParams();
 
+  const setQuery = useCallback((q: string) => (
+    setSearchParams(prev => ({ ...prev, q }))
+  ), [setSearchParams]);
+
+  const [search, setSearch] = useCallbackDelay<string>(setQuery, 500, String(searchParams.q ?? ''));
+
+  useEffect(() => { recipesStore.fetchItems(); }, []);
   useEffect(() => {
-    if (recipesStore.status === LOADED_STATUS.NOT_LOADED) {
-      recipesStore.fetchItems();
-    }
-  }, []);
+    recipesStore.fetchItems({ filter: { query: String(searchParams.q ?? '') } });
+  }, [searchParams]);
 
   return (
     <AppLayout>

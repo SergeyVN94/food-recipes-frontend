@@ -14,7 +14,8 @@ export type ListItemType<K extends SERVICE_LIST_KEY> = {
 export type ListFilter<K extends SERVICE_LIST_KEY> = {
   [SERVICE_LIST_KEY.RECIPE]: {
     ids?: Recipe['id'][];
-    slug?: Recipe['slug'][];
+    slugs?: Recipe['slug'][];
+    slug?: Recipe['slug'];
   } & PaginationFilter & QueryFilter;
   [SERVICE_LIST_KEY.RECIPE_INGREDIENT]: {
     ids?: RecipeIngredient['id'][]

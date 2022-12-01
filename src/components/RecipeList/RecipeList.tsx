@@ -16,7 +16,7 @@ const emptyItemsListPlaceholder = (
 
 const RecipeList: FC<RecipeListProps> = observer(() => (
   <ul className={cx('list')}>
-    { recipesStore.data
+    { (recipesStore.data && recipesStore.data.length > 0)
       ? recipesStore.data?.map(i => (
         <li key={i.id} className={cx('card-wrapper')}>
           <RecipeCard recipe={i} />

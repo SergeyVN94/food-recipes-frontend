@@ -7,20 +7,11 @@ import { sleep } from 'utils';
 
 import { ApiRequestResult } from './types';
 
-import recipes from './recipes.json';
-
 export const apiRequest = async (
   requestConfig: AxiosRequestConfig,
   attempts = 3,
   timeout = 1000,
 ): Promise<ApiRequestResult> => {
-  if (requestConfig.url?.startsWith('/api/v1/recipe/')) {
-    return ({
-      data: { results: recipes },
-      success: true,
-    });
-  }
-
   for (let i = 1; i <= attempts; i += 1) {
     try {
       const headers = _.merge(
