@@ -23,7 +23,7 @@ class ListStore<K extends SERVICE_LIST_KEY> {
   constructor(
     private readonly rootStore: RootStore,
     public readonly key: K,
-    private readonly listService: ListService,
+    private readonly listService: ListService<K>,
   ) {
     if (ListStore.instances.has(key)) return ListStore.instances.get(key) as ListStore<typeof key>;
 
@@ -60,7 +60,7 @@ class ListStore<K extends SERVICE_LIST_KEY> {
 
     this.loading = true;
 
-    const { data, error, metadata } = await this.listService.fetchItems(this.key, filter);
+    const { data, error, metadata } = await this.listService.fetchItems(filter);
 
     if (data) this.data = appendToData ? _.concat(this.data ?? [], data) : data;
     this.error = error ?? null;
@@ -79,7 +79,7 @@ class ListStore<K extends SERVICE_LIST_KEY> {
       error,
       metadata,
       data,
-    } = await this.listService.saveItem(this.key, item);
+    } = await this.listService.saveItem(item);
 
     if (error) this.error = error;
     if (metadata) this.metadata = metadata;
@@ -94,7 +94,7 @@ class ListStore<K extends SERVICE_LIST_KEY> {
     this.error = null;
     this.loading = true;
 
-    const { success, error } = await this.listService.deleteItem(this.key, id);
+    const { success, error } = await this.listService.deleteItem(id);
 
     if (error) this.error = error;
 

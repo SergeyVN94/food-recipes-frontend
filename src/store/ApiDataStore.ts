@@ -15,18 +15,12 @@ class ApiDataStore<K extends SERVICE_API_DATA_KEY> {
   public loading = false;
   public data: ApiDataType<K> | null = null;
   public error: Error | string | null = null;
-  // eslint-disable-next-line max-len
-  private static readonly instanceMap = new Map<SERVICE_API_DATA_KEY, ApiDataStore<SERVICE_API_DATA_KEY>>();
 
   constructor(
     private readonly rootStore: RootStore,
     public readonly key: K,
     private readonly apiDataService: ApiDataService,
   ) {
-    if (ApiDataStore.instanceMap.has(this.key)) {
-      return ApiDataStore.instanceMap.get(this.key) as ApiDataStore<typeof key>;
-    }
-
     makeObservable(this, {
       loading: observable,
       error: observable,
@@ -34,8 +28,6 @@ class ApiDataStore<K extends SERVICE_API_DATA_KEY> {
       fetchData: action.bound,
       status: computed,
     });
-
-    ApiDataStore.instanceMap.set(this.key, this);
   }
 
   get status(): LOADED_STATUS {

@@ -40,14 +40,14 @@ export const apiRequest = async (
       const detail = _.get(response, 'data.errors.detail') as string;
       const msg = _.get(response, 'data.errors.msg');
 
-      if (String(response.status) === '401') {
-        if (detail.includes('Given token not valid')) {
-          // eslint-disable-next-line no-await-in-loop
-          if (!authenticationStore.isLoading) await authenticationStore.doRefreshToken();
-          i -= 1;
-          if (i < 1) i = 0;
-        }
-      }
+      // if (String(response.status) === '401') {
+      //   if (detail.includes('Given token not valid')) {
+      //     // eslint-disable-next-line no-await-in-loop
+      //     if (!authenticationStore.isLoading) await authenticationStore.doRefreshToken();
+      //     i -= 1;
+      //     if (i < 1) i = 0;
+      //   }
+      // }
 
       if (detail) resError.message = detail;
       else if (msg) resError.message = msg;

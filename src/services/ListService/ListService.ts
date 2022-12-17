@@ -11,14 +11,21 @@ import {
   listItemToFormDataFunctions,
 } from './lib';
 
-class ListService {
-  async fetchItems<K extends SERVICE_LIST_KEY>(
-    key: K,
+class ListService<K extends SERVICE_LIST_KEY> {
+  constructor(public readonly key: K) {
+    _.entries(this).forEach(([k, value]) => {
+      if (_.isFunction(value) && _.has(this, key)) {
+        _.set(this, k, value.bind(this));
+      }
+    });
+  }
+
+  async fetchItems(
     filter: ListFilter<K> = {},
   ): Promise<ServiceApiResponseWithData<ListItemType<K>[], unknown>> {
     const { data, error } = await apiRequest({
       method: 'GET',
-      url: getFullUrl(key, filter),
+      url: getFullUrl(this.key, filter),
     });
 
     if (error) return ({ error, success: false });
@@ -29,11 +36,8 @@ class ListService {
       });
     }
 
-    const hasResults = _.hasIn(data, 'results');
-    let results = _.get(data, hasResults ? 'results' : 'data.data', []) as object[];
-    // ! если в фильтрах есть id, значит ответ возвращается сразу объектом, а не в поле results.
-    if (_.hasIn(filter, 'id')) results = _.castArray(data); // TODO: Сделать нормальный метод для парсинга ответа
-    const metadata = hasResults ? _.omit(data, 'results') : undefined;
+    const results = _.hasIn(data, 'results');
+    const metadata = results ? _.omit(data, 'results') : undefined;
 
     if (!_.isArray(results)) {
       return ({
@@ -42,7 +46,7 @@ class ListService {
       });
     }
 
-    const normalizedList = results.map(i => this.normalizeItemData<K>(key, i));
+    const normalizedList = results.map(this.normalizeItemData);
 
     return ({
       metadata,
@@ -51,38 +55,31 @@ class ListService {
     });
   }
 
-  async saveItem<K extends SERVICE_LIST_KEY>(
-    key: K,
+  async saveItem(
     item: ListItemType<K>,
   ): Promise<ServiceApiResponseWithData<unknown, unknown>> {
     const itemId = item.id === -1 ? '' : `${item.id}/`;
 
     const response = await apiRequest({
       method: item.id === -1 ? 'POST' : 'PUT',
-      url: `${mapListKeyToUrl[key]}${itemId}`,
-      data: this.itemToFormData(key, item),
+      url: `${mapListKeyToUrl[this.key]}${itemId}`,
+      data: this.itemToFormData(item),
     });
 
     return response;
   }
 
-  async deleteItem<K extends SERVICE_LIST_KEY>(
-    key: K,
-    id: number | string,
-  ): Promise<ServiceApiResponse> {
+  async deleteItem(id: number | string): Promise<ServiceApiResponse> {
     const response = await apiRequest({
       method: 'DELETE',
-      url: `${mapListKeyToUrl[key]}${id}/`,
+      url: `${mapListKeyToUrl[this.key]}${id}/`,
     });
 
     return response;
   }
 
-  private itemToFormData<K extends SERVICE_LIST_KEY>(
-    key: K,
-    item: ListItemType<K>,
-  ): FormData {
-    const convertFunc = listItemToFormDataFunctions[key];
+  private itemToFormData(item: ListItemType<K>): FormData {
+    const convertFunc = listItemToFormDataFunctions[this.key];
     if (convertFunc) return convertFunc(item);
 
     const formData = new FormData();
@@ -93,12 +90,9 @@ class ListService {
     return formData;
   }
 
-  private normalizeItemData<K extends SERVICE_LIST_KEY>(
-    key: K,
-    item: unknown,
-  ): ListItemType<K> {
+  private normalizeItemData(item: unknown): ListItemType<K> {
     if (_.isObject(item)) {
-      const normalizeFunc = normalizeListItemFunctions[key];
+      const normalizeFunc = normalizeListItemFunctions[this.key];
       return (normalizeFunc ? normalizeFunc(item) : item as ListItemType<K>);
     }
 

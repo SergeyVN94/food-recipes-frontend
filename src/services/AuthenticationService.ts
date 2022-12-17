@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { stringify } from 'query-string';
 
 import api from 'api';
 
@@ -6,23 +7,23 @@ class AuthenticationService {
   async authentication(
     email: string,
     password: string,
-  ): Promise<{ refresh: string, access: string }> {
-    const formData = new FormData();
-    formData.append('email', email);
-    formData.append('password', password);
-
+  ): Promise<{ access: string }> {
     try {
-      const { data } = await api.post('/api/v1/auth/token/create/', formData);
+      const { data } = await api.post(
+        '/api/v1/auth/login',
+        stringify({ email, password }),
+        { headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' } },
+      );
 
       if (!data || typeof data !== 'object') {
         throw new Error('Invalid authentication response data');
       }
 
-      const { refresh, access, errors } = data.data;
+      const { access, errors } = data.data;
 
       if (errors) throw new Error(errors.msg);
 
-      return ({ refresh, access });
+      return ({ access });
     } catch (error) {
       const message = _.get(
         error,
