@@ -13,12 +13,12 @@ import {
   VisiblePassButton,
   ClearButton,
 } from './elements';
-import { TextFieldProps } from './types';
+import { ITextFieldProps } from './types';
 import './text-field.scss';
 
 const b = block('text-field');
 
-const TextField: React.FC<TextFieldProps> = ({
+const TextField: React.FC<ITextFieldProps> = ({
   value,
   onChange,
   onBlur,

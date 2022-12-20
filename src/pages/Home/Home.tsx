@@ -8,7 +8,7 @@ import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 
 import AppLayout from 'layouts/AppLayout';
-import Grid from 'components/ui/Grid';
+import ContainerContent from 'components/ui/ContainerContent';
 import TextField from 'components/ui/TextField';
 import RecipeList from 'components/RecipeList';
 import { useCallbackDelay } from 'utils/hooks/useCallbackDelay';
@@ -39,7 +39,7 @@ export const Home: FC<HomeProps> = observer(() => {
   return (
     <AppLayout>
       <main className={cx('page')}>
-        <Grid>
+        <ContainerContent>
           <div className={cx('search')}>
             <TextField
               actionClear
@@ -55,7 +55,7 @@ export const Home: FC<HomeProps> = observer(() => {
           <div className={cx('recipes-list')}>
             <RecipeList />
           </div>
-        </Grid>
+        </ContainerContent>
       </main>
     </AppLayout>
   );

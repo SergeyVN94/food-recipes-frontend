@@ -81,7 +81,7 @@ $r: '.popup';
       padding: 48px 40px;
 
       @media (max-width: $mqw-tablet) {
-        grid-gap: unset;
+        ContainerContent-gap: unset;
         padding: 0;
       }
     }
@@ -94,7 +94,7 @@ $r: '.popup';
 
     #{$r}_position_right & {
       flex: 0 1 auto;
-      grid-gap: unset;
+      ContainerContent-gap: unset;
 
       @media (max-width: $mqw-tablet) {
         justify-content: center;

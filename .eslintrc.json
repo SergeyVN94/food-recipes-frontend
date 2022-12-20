@@ -17,7 +17,7 @@
   ],
   "rules": {
     "no-restricted-exports": "off",
-    "max-len": ["error", { "code": 100, "ignoreComments": true }],
+    "max-len": ["error", { "code": 100, "ignoreComments": true, "ignoreUrls": true, "ignoreStrings": true }],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/prop-types": "off",
@@ -39,6 +39,7 @@
     "react/function-component-definition": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "@typescript-eslint/no-empty-interface": "off",
     "react/require-default-props": [2, {
       "ignoreFunctionalComponents": true
     }],
@@ -47,7 +48,15 @@
     }],
     "@typescript-eslint/naming-convention": [
       "error",
-      { "selector": "enum", "format": ["UPPER_CASE", "camelCase", "PascalCase"] }
+      { "selector": "enum", "format": ["UPPER_CASE", "camelCase", "PascalCase"] },
+      {
+        "selector": "interface",
+        "format": ["PascalCase"],
+        "custom": {
+          "regex": "^I[A-Z]",
+          "match": true
+        }
+      }
     ],
     "jsx-a11y/no-static-element-interactions": "off"
   },

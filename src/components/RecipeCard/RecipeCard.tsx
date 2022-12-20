@@ -4,12 +4,12 @@ import classNames from 'classnames/bind';
 
 import imagePlaceholder from 'assets/images/no-image.png';
 
-import { RecipeCardProps } from './types';
+import { IRecipeCardProps } from './types';
 import styles from './recipe-card.module.scss';
 
 const cx = classNames.bind(styles);
 
-const RecipeCard: FC<RecipeCardProps> = ({ recipe }) => {
+const RecipeCard: FC<IRecipeCardProps> = ({ recipe }) => {
   const { images = [] } = recipe;
   const firsImage = images[0];
 

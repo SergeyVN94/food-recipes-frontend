@@ -1,4 +1,4 @@
-export interface TextFieldProps {
+export interface ITextFieldProps {
   value: string;
   onChange: (value: string, name?: string) => void;
   onBlur?: (name?: string) => void;

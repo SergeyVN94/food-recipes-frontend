@@ -1,3 +1,5 @@
+import { AxiosRequestConfig } from 'axios';
+
 export type ServiceApiResponse = {
   error?: Error;
   metadata?: unknown;
@@ -16,3 +18,11 @@ export type ApiRequestResult = {
   error?: Error;
   cancel?: boolean;
 };
+
+export type ApiRequestFunc = (
+  requestConfig: AxiosRequestConfig,
+  replaceConfig?: {
+    attempts?: number;
+    timeout?: number;
+  },
+) => Promise<ApiRequestResult>;

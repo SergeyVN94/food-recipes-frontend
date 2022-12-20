@@ -1,6 +1,14 @@
 // ****** Медиа запросы ******
 @import './media-query.scss';
 
+// ****** Миксины ******
+
+@mixin container-content {
+  @include size($w: 100%, $maxW: 1170px);
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
 // ****** Общие миксины ******
 
 @mixin size(

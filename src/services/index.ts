@@ -1,15 +1,14 @@
-import { SERVICE_LIST_KEY } from 'types/listService';
-
 import AuthenticationService from './AuthenticationService';
-// eslint-disable-next-line import/no-named-as-default
-import ApiDataService from './ApiDataService/ApiDataService';
-import ListService from './ListService/ListService';
+import RecipeIngredientService from './RecipeIngredientService';
+import RecipeService from './RecipeService';
+import UserService from './UserService';
 
 export { default as AuthenticationService } from './AuthenticationService';
-export { default as ApiDataService } from './ApiDataService/ApiDataService';
-export { default as ListService } from './ListService/ListService';
+export { default as RecipeIngredientService } from './RecipeIngredientService';
+export { default as RecipeService } from './RecipeService';
+export { default as UserService } from './UserService';
 
 export const authenticationService = new AuthenticationService();
-export const apiDataService = new ApiDataService();
-export const recipeService = new ListService(SERVICE_LIST_KEY.RECIPE);
-export const recipeIngredientService = new ListService(SERVICE_LIST_KEY.RECIPE_INGREDIENT);
+export const recipeService = new RecipeService();
+export const recipeIngredientService = new RecipeIngredientService();
+export const userService = new UserService();

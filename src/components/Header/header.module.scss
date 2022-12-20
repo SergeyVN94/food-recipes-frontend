@@ -14,3 +14,11 @@
 .logo-img {
   @include size($wh: 100%);
 }
+
+.content {
+  @include flex($wrap: nowrap);
+}
+
+.user-panel {
+  margin-left: auto;
+}

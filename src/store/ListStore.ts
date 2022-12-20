@@ -6,27 +6,22 @@ import {
   computed,
 } from 'mobx';
 
-import ListService from 'services/ListService/ListService';
-import { ListFilter, ListItemType, SERVICE_LIST_KEY } from 'types/listService';
+import { IListService } from 'types/service';
 
 import { LOADED_STATUS } from './lib';
 import RootStore from './RootStore';
 
-class ListStore<K extends SERVICE_LIST_KEY> {
+class ListStore<Item extends { id: unknown }, Filter extends object> {
   public loading = false;
-  public data: ListItemType<K>[] | null = null;
+  public data: Item[] | null = null;
   public metadata: unknown = null; // дополнительные данные, которые вернул сервер в дополнение к основным
   public error: Error | string | null = null;
-  private static instances = new Map<SERVICE_LIST_KEY, ListStore<SERVICE_LIST_KEY>>();
-  private fetchItemsFilter: ListFilter<K> | null = null;
+  private fetchItemsFilter: Filter | null = null;
 
   constructor(
     private readonly rootStore: RootStore,
-    public readonly key: K,
-    private readonly listService: ListService<K>,
+    private readonly service: IListService<Item, Filter>,
   ) {
-    if (ListStore.instances.has(key)) return ListStore.instances.get(key) as ListStore<typeof key>;
-
     makeObservable(this, {
       data: observable,
       error: observable,
@@ -35,8 +30,6 @@ class ListStore<K extends SERVICE_LIST_KEY> {
       fetchItems: action,
       status: computed,
     });
-
-    ListStore.instances.set(key, this);
   }
 
   get status(): LOADED_STATUS {
@@ -45,62 +38,60 @@ class ListStore<K extends SERVICE_LIST_KEY> {
     return this.data ? LOADED_STATUS.SUCCESS : LOADED_STATUS.NOT_LOADED;
   }
 
-  getFetchFilter(): ListFilter<K> | null {
+  getFetchFilter(): Filter | null {
     return this.fetchItemsFilter;
   }
 
   async fetchItems({ filter, force = false, appendToData }: {
-    filter?: ListFilter<K>;
+    filter?: Filter;
     force?: boolean;
     appendToData?: boolean; // добавить данные к текущему массиву
   } = {}) {
     if (!force && this.loading) return;
 
     this.fetchItemsFilter = filter ?? null;
-
     this.loading = true;
 
-    const { data, error, metadata } = await this.listService.fetchItems(filter);
+    const response = await this.service.fetchItems(filter);
 
-    if (data) this.data = appendToData ? _.concat(this.data ?? [], data) : data;
-    this.error = error ?? null;
-    this.metadata = metadata ?? null;
+    if ('error' in response) {
+      this.error = response.error;
+    } else {
+      const { data, metadata } = response;
+
+      this.data = appendToData ? _.concat(this.data ?? [], data) : data;
+      this.metadata = metadata ?? null;
+    }
+
     this.loading = false;
   }
 
-  async saveItem(item: ListItemType<K>): Promise<{ success: boolean, data?: unknown }> {
+  async saveItem(item: Item & { id: null }): Promise<{ success: boolean }> {
     if (this.loading) return ({ success: false });
     this.error = null;
     this.metadata = null;
     this.loading = true;
 
-    const {
-      success,
-      error,
-      metadata,
-      data,
-    } = await this.listService.saveItem(item);
+    const response = await this.service.save(item);
 
-    if (error) this.error = error;
-    if (metadata) this.metadata = metadata;
+    if ('error' in response) this.error = response.error as Error;
 
     this.loading = false;
 
-    return ({ success, data });
+    return ({ success: !('error' in response) });
   }
 
-  async deleteItem(id: string | number): Promise<boolean> {
+  async deleteItem(id: Item['id']): Promise<boolean> {
     if (this.loading) return false;
     this.error = null;
     this.loading = true;
 
-    const { success, error } = await this.listService.deleteItem(id);
+    const { error } = await this.service.delete(id);
 
-    if (error) this.error = error;
-
+    this.error = error ?? null;
     this.loading = false;
 
-    return success;
+    return !error;
   }
 }
 

@@ -1,17 +1,15 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import _ from 'lodash';
 
 import api from 'api';
 import { authenticationStore } from 'store';
 import { sleep } from 'utils';
 
-import { ApiRequestResult } from './types';
+import { ApiRequestFunc } from './types';
 
-export const apiRequest = async (
-  requestConfig: AxiosRequestConfig,
-  attempts = 3,
-  timeout = 1000,
-): Promise<ApiRequestResult> => {
+export const apiRequest: ApiRequestFunc = async (requestConfig, replaceConfig = {}) => {
+  const { attempts = 3, timeout = 1000 } = replaceConfig;
+
   for (let i = 1; i <= attempts; i += 1) {
     try {
       const headers = _.merge(

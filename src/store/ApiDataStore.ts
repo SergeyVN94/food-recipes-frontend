@@ -5,67 +5,64 @@ import {
   computed,
 } from 'mobx';
 
-import { ApiDataService } from 'services';
-import { ApiDataType, SERVICE_API_DATA_KEY } from 'types/apiDataService';
+import { IApiDataService } from 'types/service';
 
 import { LOADED_STATUS } from './lib';
 import RootStore from './RootStore';
 
-class ApiDataStore<K extends SERVICE_API_DATA_KEY> {
+class ApiDataStore<K> {
   public loading = false;
-  public data: ApiDataType<K> | null = null;
-  public error: Error | string | null = null;
+  public data: K | null = null;
+  public error: Error | null = null;
 
   constructor(
     private readonly rootStore: RootStore,
-    public readonly key: K,
-    private readonly apiDataService: ApiDataService,
+    private readonly service: IApiDataService<K>,
   ) {
     makeObservable(this, {
       loading: observable,
       error: observable,
       data: observable,
-      fetchData: action.bound,
+      fetch: action.bound,
       status: computed,
     });
   }
 
   get status(): LOADED_STATUS {
-    const { data, loading, error } = this;
-    if (!data && !loading && !error) return LOADED_STATUS.NOT_LOADED;
-    if (!loading && data && !error) return LOADED_STATUS.SUCCESS;
-    if (!loading && !data && error) return LOADED_STATUS.FAIL;
-    return LOADED_STATUS.LOADING;
+    if (this.loading) return LOADED_STATUS.LOADING;
+    if (this.error) return LOADED_STATUS.FAIL;
+    return this.data ? LOADED_STATUS.SUCCESS : LOADED_STATUS.NOT_LOADED;
   }
 
-  async fetchData() {
+  async fetch() {
     if (this.loading) return false;
     this.loading = true;
     this.error = null;
     this.data = null;
 
-    const { data, error, success } = await this.apiDataService.fetchData(this.key);
+    const response = await this.service.fetch();
 
-    if (error) this.error = error;
-    if (data) this.data = data;
+    if ('error' in response) this.error = response.error;
+    else this.data = response.data;
 
     this.loading = false;
 
-    return success;
+    return !('error' in response);
   }
 
-  async saveData(data: ApiDataType<K>) {
+  async save(data: K) {
     if (this.loading) return false;
     this.loading = true;
     this.error = null;
 
-    const { success, error } = await this.apiDataService.saveData(this.key, data);
+    const response = await this.service.update(data);
 
-    if (error) this.error = error;
+    if ('error' in response) this.error = response.error;
+    else this.data = response.item;
 
     this.loading = false;
 
-    return success;
+    return !('error' in response);
   }
 }
 

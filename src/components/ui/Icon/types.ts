@@ -3,7 +3,7 @@ import { icons } from './lib';
 export type IconsType = typeof icons[number];
 export type IconColor = 'interactive' | 'black' | 'white' | 'gray' | 'danger' | 'light';
 
-export interface IconProps {
+export interface IIconProps {
   icon: IconsType;
   color?: IconColor;
   customColor?: string;

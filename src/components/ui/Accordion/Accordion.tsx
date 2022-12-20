@@ -3,12 +3,12 @@ import { block } from 'bem-cn';
 
 import Icon from 'components/ui/Icon';
 
-import { AccordionProps } from './types';
+import { IAccordionProps } from './types';
 import './accordion.scss';
 
 const b = block('accordion');
 
-const Accordion: React.FC<AccordionProps> = ({
+const Accordion: React.FC<IAccordionProps> = ({
   label,
   expanded,
   onClick,

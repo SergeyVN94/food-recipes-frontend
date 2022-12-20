@@ -6,7 +6,7 @@ import {
 } from 'mobx';
 import Cookie from 'js-cookie';
 
-import { authenticationService } from 'services';
+import { AuthenticationService } from 'services';
 import RootStore from './RootStore';
 
 enum COOKIE_KEYS {
@@ -19,7 +19,10 @@ class AuthenticationStore {
   public accessToken = '';
   public error: Error | null = null;
 
-  constructor(private readonly rootStore: RootStore) {
+  constructor(
+    private readonly rootStore: RootStore,
+    private readonly authenticationService: AuthenticationService,
+  ) {
     makeObservable(this, {
       accessToken: observable,
       isLoading: observable,
@@ -42,7 +45,7 @@ class AuthenticationStore {
     try {
       this.isLoading = true;
 
-      const { access } = await authenticationService.authentication(email, password);
+      const { access } = await this.authenticationService.authentication(email, password);
 
       Cookie.set(COOKIE_KEYS.ACCESS_TOKEN, access, { expires: 14 });
 

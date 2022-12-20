@@ -3,10 +3,10 @@ import { observer } from 'mobx-react';
 
 import sprite from 'assets/images/icons/sprite.svg';
 
-import { IconProps } from './types';
+import { IIconProps } from './types';
 import './icon.scss';
 
-export const Icon: React.FC<IconProps> = observer(({
+export const Icon: React.FC<IIconProps> = observer(({
   color,
   icon,
   size = 16,
