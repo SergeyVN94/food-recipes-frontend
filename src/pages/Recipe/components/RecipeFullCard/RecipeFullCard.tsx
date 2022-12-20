@@ -13,9 +13,9 @@ const cx = classNames.bind(styles);
 
 const RecipeFullCard: FC<RecipeFullCardProps> = observer(({ recipe }) => {
   useEffect(() => {
-    const noLoadedIngredients = recipe.ingredients.filter(id => (
-      (recipeIngredientsStore.data ?? []).some(i => i.id === id)
-    ));
+    const noLoadedIngredients = recipe.ingredients.filter(({ ingredientId }) => (
+      (recipeIngredientsStore.data ?? []).some(i => i.id === ingredientId)
+    )).map(i => i.ingredientId);
 
     if (noLoadedIngredients.length > 0) {
       recipeIngredientsStore.fetchItems({

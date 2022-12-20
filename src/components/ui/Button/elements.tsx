@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { block, BemMods } from 'bem-cn';
 import _ from 'lodash';
 
-import Icon, { IconColor, IconProps } from 'components/ui/Icon';
+import Icon, { IconColor, IIconProps } from 'components/ui/Icon';
 
 import { ButtonProps } from './types';
 
@@ -69,7 +69,7 @@ export const ButtonInner: React.FC<ButtonProps> = (props => {
   );
   const elementIcon = variant.includes('-block') && (
     <span className={b('icon')}>
-      <Icon icon={_.get(props, 'icon') as unknown as IconProps['icon']} color={iconColor} />
+      <Icon icon={_.get(props, 'icon') as unknown as IIconProps['icon']} color={iconColor} />
     </span>
   );
 

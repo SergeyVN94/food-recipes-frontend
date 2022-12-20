@@ -6,7 +6,6 @@ export const rootStore = new RootStore();
 export const {
   recipesStore,
   authenticationStore,
-  generalApiDataStore,
   recipeIngredientsStore,
 } = rootStore;
 

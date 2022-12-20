@@ -32,12 +32,7 @@ class ListService<
     this.normalizeItem = normalizeItem;
     this.itemToFormData = itemToFormData;
 
-    // bind methods
-    _.entries(this).forEach(([k, value]) => {
-      if (_.isFunction(value) && _.has(this, k)) {
-        _.set(this, k, value.bind(this));
-      }
-    });
+    _.bindAll(this, ['normalizeItemData', 'convertItemToFormData']);
   }
 
   async fetchItems(filter: Filter) {
@@ -51,7 +46,7 @@ class ListService<
       return ({ error: new Error('Invalid response data') });
     }
 
-    const results = _.hasIn(data, 'results');
+    const results = _.get(data, 'results');
     const metadata = _.omit(data, 'results');
 
     if (!_.isArray(results)) return ({ error: new Error('Invalid response data') });
@@ -59,7 +54,7 @@ class ListService<
     try {
       return ({
         metadata,
-        data: results.map(this.normalizeItemData),
+        data: (results as unknown[]).map(this.normalizeItemData),
       });
     } catch (err) {
       return ({ error: err as Error });

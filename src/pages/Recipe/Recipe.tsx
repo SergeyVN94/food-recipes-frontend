@@ -23,7 +23,7 @@ const Recipe: FC<RecipeProps> = observer(() => {
 
   useEffect(() => {
     if (normalizedSlug.length > 0) {
-      recipesStore.fetchItems({ filter: { slug: normalizedSlug } });
+      recipesStore.fetchItems({ filter: { slugs: [normalizedSlug] } });
     } else {
       navigate('/');
     }
