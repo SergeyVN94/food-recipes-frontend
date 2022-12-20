@@ -1,6 +1,7 @@
 import React from 'react';
 import { block } from 'bem-cn';
 import _ from 'lodash';
+import Icon from 'components/ui/Icon';
 
 const b = block('popup');
 
@@ -21,7 +22,9 @@ export const PopupBtnClose: React.FC<{ onClick: () => void }> = ({ onClick }) =>
     className={b('button-close')}
     aria-label='close button'
     onClick={() => onClick && onClick()}
-  />
+  >
+    <Icon icon='close' />
+  </button>
 );
 
 export const PopupHead: React.FC<{ children?: React.ReactNode }> = ({ children }) => (

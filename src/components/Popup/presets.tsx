@@ -24,7 +24,7 @@ export const PopupDelete: React.FC<{
   onCancel,
   isOpen = true,
 }) => (
-  <Popup position='center' isOpen={isOpen} onShadowClick={onCancel} mode='error'>
+  <Popup position='center' isOpen={isOpen} onClose={onCancel} mode='error'>
     <PopupBtnClose onClick={onCancel} />
     <PopupIcon icon='trash' />
     <PopupTitle>{title}</PopupTitle>
@@ -53,7 +53,7 @@ export const PopupInfo: React.FC<{
   onClose: () => void;
   isOpen?: boolean;
 }> = ({ title, onClose, isOpen = true }) => (
-  <Popup position='center' isOpen={isOpen} onShadowClick={onClose} mode='success'>
+  <Popup position='center' isOpen={isOpen} onClose={onClose} mode='success'>
     <PopupBtnClose onClick={onClose} />
     <PopupIcon icon='trash_success' />
     <PopupTitle>{title}</PopupTitle>

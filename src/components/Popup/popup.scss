@@ -66,11 +66,11 @@ $r: '.popup';
       transition: none;
       visibility: hidden;
       overflow: visible;
-      padding: 48px 20px 20px;
+      padding: 20px 20px;
 
       @include media-tablet {
         max-width: 400px;
-        padding: 48px 32px 32px;
+        padding: 32px 32px;
       }
     }
     #{$r}_position_center#{$r}_open & {
@@ -187,14 +187,15 @@ $r: '.popup';
   }
 
   &__button-close {
+    @include reset-button;
     @include position($pos: absolute, $r: 16px, $t: 16px);
-    // @include icon($icon: 'close', $color: #d9d9d9, $width: 0.875rem, $height: 0.875rem);
     border: 0;
     outline: 0;
     cursor: pointer;
+    transition: color $animation-time ease;
 
     &:hover {
-      background-color: #222;
+      color: #222;
     }
 
     #{$r}_position_right & {

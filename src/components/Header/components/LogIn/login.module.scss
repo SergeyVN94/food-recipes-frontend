@@ -1,0 +1,17 @@
+.auth-form-title {
+  @include font-h3-desktop;
+  color: $color_text-01;
+  margin-bottom: $spacing_ver-medium;
+}
+
+.auth-form-error {
+  @include font-h3-desktop;
+  color: $color_danger;
+  margin-bottom: $spacing_ver-medium;
+}
+
+.auth-form-field {
+  & + & {
+    margin-top: $spacing_ver-medium;
+  }
+}

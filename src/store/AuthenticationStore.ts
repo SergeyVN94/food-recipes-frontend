@@ -4,15 +4,11 @@ import {
   action,
   computed,
 } from 'mobx';
-import Cookie from 'js-cookie';
 
 import { AuthenticationService } from 'services';
-import RootStore from './RootStore';
+import authToken from 'utils/authToken';
 
-enum COOKIE_KEYS {
-  ACCESS_TOKEN = 'access-token',
-  REFRESH_TOKEN = 'refresh-token',
-}
+import RootStore from './RootStore';
 
 class AuthenticationStore {
   public isLoading = false;
@@ -32,9 +28,7 @@ class AuthenticationStore {
       isAuthenticated: computed,
     });
 
-    const accessToken = Cookie.get(COOKIE_KEYS.ACCESS_TOKEN);
-
-    if (accessToken) this.accessToken = accessToken;
+    if (authToken.access) this.accessToken = authToken.access;
   }
 
   get isAuthenticated() {
@@ -46,9 +40,7 @@ class AuthenticationStore {
       this.isLoading = true;
 
       const { access } = await this.authenticationService.authentication(email, password);
-
-      Cookie.set(COOKIE_KEYS.ACCESS_TOKEN, access, { expires: 14 });
-
+      authToken.access = access;
       this.accessToken = access;
     } catch (e) {
       this.error = e as Error;
@@ -59,10 +51,9 @@ class AuthenticationStore {
 
   async logout() {
     this.accessToken = '';
+    authToken.access = '';
     this.error = null;
     this.isLoading = false;
-    Cookie.remove(COOKIE_KEYS.ACCESS_TOKEN);
-    Cookie.remove(COOKIE_KEYS.REFRESH_TOKEN);
   }
 }
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import _ from 'lodash';
 
 import api from 'api';
-import { authenticationStore } from 'store';
+import authToken from 'utils/authToken';
 import { sleep } from 'utils';
 
 import { ApiRequestFunc } from './types';
@@ -12,10 +12,9 @@ export const apiRequest: ApiRequestFunc = async (requestConfig, replaceConfig = 
 
   for (let i = 1; i <= attempts; i += 1) {
     try {
-      const headers = _.merge(
-        requestConfig.headers,
-        { Authorization: `Bearer ${authenticationStore.accessToken}` },
-      );
+      const headers = requestConfig.headers ?? {};
+      if (authToken.access) headers.Authorization = `Bearer ${authToken.access}`;
+
       // eslint-disable-next-line no-await-in-loop
       const response = await api({ ...requestConfig, headers });
       const data = _.get(response, 'data');

@@ -10,13 +10,13 @@ export type PopupProps = {
   isOpen?: boolean;
   position?: 'center' | 'right' | 'left';
   mode?: 'error' | 'success';
-  onShadowClick?: () => void;
+  onClose?: () => void;
   children?: React.ReactNode;
 };
 
 const Popup: React.FC<PopupProps> = ({
   children,
-  onShadowClick,
+  onClose,
   isOpen = false,
   position = 'right',
   mode = '',
@@ -34,7 +34,7 @@ const Popup: React.FC<PopupProps> = ({
       !target.classList.contains(b().toString())
       && !target.classList.contains(b('wrapper').toString())
     ) return;
-    if (onShadowClick) onShadowClick();
+    if (onClose) onClose();
   };
 
   const styles: React.CSSProperties = {};
