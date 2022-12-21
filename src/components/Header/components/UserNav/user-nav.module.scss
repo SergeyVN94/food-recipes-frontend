@@ -1,0 +1,37 @@
+.wrapper {
+  display: block;
+  position: relative;
+}
+
+.user-avatar {
+  @include size($wh: 48px);
+  display: block;
+  cursor: pointer;
+}
+
+.submenu {
+  @include position($pos: absolute, $t: calc(100% + 10px), $r: 0);
+  @include flex($dir: column, $align: flex-start);
+  display: none;
+  box-shadow: 0 0 10px transparentize($color: #000000, $amount: 0.7);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+
+  &.visible {
+    display: flex;
+    z-index: $z-index-modal-items;
+    background-color: $color_ui-background;
+  }
+
+  &-link {
+    text-decoration: none;
+    color: $color_text-01;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color $animation-time ease;
+
+    &:hover {
+      color: $color_interactive;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 export type User = {
-  username: string;
+  userName: string;
   email: string;
+  role: UserRole;
 };
 
 export type UserAuth = {
@@ -13,3 +14,8 @@ export type UserRegister = {
   email: string;
   password: string;
 };
+
+export enum UserRole {
+  USER = 'user',
+  ADMIN = 'admin',
+}

@@ -4,6 +4,7 @@ import RootStore from './RootStore';
 
 export const rootStore = new RootStore();
 export const {
+  userStore,
   recipesStore,
   authenticationStore,
   recipeIngredientsStore,
