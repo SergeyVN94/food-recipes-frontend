@@ -1,5 +1,9 @@
 .wrapper {
-  display: block;
+  @include flex($wrap: nowrap);
+  gap: $spacing_ver-small;
+}
+
+.user-menu {
   position: relative;
 }
 
