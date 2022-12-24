@@ -7,18 +7,19 @@ import { ApiRequestFunc } from './types';
 
 class ListService<
   Item extends { id: unknown },
-  Filter extends object,
-> implements IListService<Item, Filter> {
-  private readonly apiRequest: ApiRequestFunc;
-  private readonly getFullUrl: (args?: { id?: Item['id'], filter?: Filter }) => string;
-  private readonly normalizeItem?: (item: unknown) => Item;
-  private readonly itemToFormData?: (item: Item) => FormData;
+  Filter,
+  Payload = Omit<Item, 'id'>,
+> implements IListService<Item, Filter, Payload> {
+  protected readonly apiRequest: ApiRequestFunc;
+  protected readonly getFullUrl: (args?: { id?: Item['id'], filter?: Filter }) => string;
+  protected readonly normalizeItem?: (item: unknown) => Item;
+  protected readonly itemToFormData?: (payload: Payload | (Payload & { id: Item['id'] })) => FormData;
 
   constructor(config: {
     getFullUrl: (args?: { id?: Item['id'], filter?: Filter }) => string; // url вместе с фильтрами для получения списка
     apiRequest?: ApiRequestFunc;
     normalizeItem?: (item: unknown) => Item; // нормализация элементов списка с сервера
-    itemToFormData?: (item: Item) => FormData; // конвертация в данные формы.
+    itemToFormData?: (payload: Payload | (Payload & { id: Item['id'] })) => FormData; // конвертация в данные формы.
   }) {
     const {
       getFullUrl,
@@ -61,21 +62,21 @@ class ListService<
     }
   }
 
-  async save(item: Item & { id: null }) {
+  async save(payload: Payload) {
     const { error, data } = await this.apiRequest({
       method: 'POST',
       url: this.getFullUrl(),
-      data: this.convertItemToFormData(item),
+      data: this.convertItemToFormData(payload),
     });
 
     return ({ error: error as Error, data: this.normalizeItemData(data) });
   }
 
-  async update(item: Item) {
+  async update(payload: Payload & { id: Item['id'] }) {
     const { data, error } = await this.apiRequest({
       method: 'PUT',
-      url: this.getFullUrl({ id: item.id }),
-      data: this.convertItemToFormData(item),
+      url: this.getFullUrl({ id: payload.id }),
+      data: this.convertItemToFormData(payload),
     });
 
     return ({ error: error as Error, data: this.normalizeItemData(data) });
@@ -90,13 +91,18 @@ class ListService<
     return response;
   }
 
-  private convertItemToFormData(item: Item): FormData {
-    if (this.itemToFormData) return this.itemToFormData(item);
+  private convertItemToFormData(payload: Payload): FormData {
+    if (this.itemToFormData) return this.itemToFormData(payload);
 
     const formData = new FormData();
-    _.entries(item).forEach(([k, value]) => {
-      formData.set(k, value as unknown as string);
-    });
+
+    if (_.isObject(payload)) {
+      _.entries(payload).forEach(([k, value]) => {
+        formData.set(k, value as unknown as string);
+      });
+    } else {
+      formData.set('payload', _.toString(payload));
+    }
 
     return formData;
   }

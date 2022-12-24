@@ -11,7 +11,11 @@ import { IListService } from 'types/service';
 import { LOADED_STATUS } from './lib';
 import RootStore from './RootStore';
 
-class ListStore<Item extends { id: unknown }, Filter extends object> {
+class ListStore<
+  Item extends { id: unknown },
+  Filter extends object,
+  Payload = Omit<Item, 'id'>,
+> {
   public loading = false;
   public data: Item[] | null = null;
   public metadata: unknown = null; // дополнительные данные, которые вернул сервер в дополнение к основным
@@ -20,7 +24,7 @@ class ListStore<Item extends { id: unknown }, Filter extends object> {
 
   constructor(
     private readonly rootStore: RootStore,
-    private readonly service: IListService<Item, Filter>,
+    private readonly service: IListService<Item, Filter, Payload>,
   ) {
     makeObservable(this, {
       data: observable,
@@ -66,13 +70,16 @@ class ListStore<Item extends { id: unknown }, Filter extends object> {
     this.loading = false;
   }
 
-  async saveItem(item: Item & { id: null }): Promise<{ success: boolean }> {
+  async saveItem(payload: Payload & { id?: Item['id'] }): Promise<{ success: boolean }> {
     if (this.loading) return ({ success: false });
     this.error = null;
     this.metadata = null;
     this.loading = true;
 
-    const response = await this.service.save(item);
+    const response = await ('id' in payload
+      ? this.service.update(payload as Payload & { id: Item['id'] })
+      : this.service.save(payload)
+    );
 
     if ('error' in response) this.error = response.error as Error;
 

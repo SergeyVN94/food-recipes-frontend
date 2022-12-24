@@ -4,15 +4,15 @@ import { IApiDataService } from 'types/service';
 
 import { apiRequest } from './utils';
 
-class ApiDataService<T> implements IApiDataService<T> {
-  private readonly apiUrl: string;
-  private readonly normalizeDate?: (item: unknown) => T;
-  private readonly itemToFormDate?: (item: T) => FormData;
+class ApiDataService<T, P = T> implements IApiDataService<T, P> {
+  protected readonly apiUrl: string;
+  protected readonly normalizeDate?: (item: unknown) => T;
+  protected readonly itemToFormDate?: (item: P) => FormData;
 
   constructor(config: {
     apiUrl: string;
     normalizeDate?: (item: unknown) => T; // нормализация данных с сервера
-    itemToFormDate?: (item: T) => FormData; // конвертация перед отправкой на сервер
+    itemToFormDate?: (item: P) => FormData; // конвертация перед отправкой на сервер
   }) {
     const { apiUrl, normalizeDate, itemToFormDate } = config;
 
@@ -31,20 +31,20 @@ class ApiDataService<T> implements IApiDataService<T> {
     return ({ data: this.normalizeDate ? this.normalizeDate(data) : data as T });
   }
 
-  async update(item: T) {
+  async update(payload: P) {
     let formData: FormData;
 
     if (this.itemToFormDate) {
-      formData = this.itemToFormDate(item);
+      formData = this.itemToFormDate(payload);
     } else {
       formData = new FormData();
 
-      if (_.isObject(item)) {
-        _.entries(item).forEach(([key, value]) => {
+      if (_.isObject(payload)) {
+        _.entries(payload).forEach(([key, value]) => {
           formData.set(key, value as unknown as string);
         });
       } else {
-        formData.set('data', String(item));
+        formData.set('payload', String(payload));
       }
     }
 

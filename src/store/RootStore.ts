@@ -11,6 +11,7 @@ import {
   RecipeFilter,
   RecipeIngredient,
   RecipeIngredientFilter,
+  RecipePayload,
 } from 'types/recipe';
 import ApiDataStore from './ApiDataStore';
 
@@ -19,7 +20,7 @@ import ListStore from './ListStore';
 
 class RootStore {
   public readonly authenticationStore: AuthenticationStore;
-  public readonly recipesStore: ListStore<Recipe, RecipeFilter>;
+  public readonly recipesStore: ListStore<Recipe, RecipeFilter, RecipePayload>;
   public readonly recipeIngredientsStore: ListStore<RecipeIngredient, RecipeIngredientFilter>;
   public readonly userStore: ApiDataStore<User>;
 
