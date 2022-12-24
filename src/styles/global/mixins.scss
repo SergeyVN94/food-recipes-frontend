@@ -62,12 +62,38 @@
   }
 }
 
-@mixin flex($dsp: flex, $dir: row, $wrap: wrap, $align: center, $justify: flex-start) {
+@mixin flex(
+  $dsp: flex,
+  $dir: row,
+  $wrap: wrap,
+  $align: center,
+  $justify: flex-start,
+  $flex: initial,
+  $flex-grow: initial,
+  $flex-shrink: initial,
+  $flex-basis: initial,
+  $gap: initial,
+) {
   display: $dsp;
   flex-direction: $dir;
   flex-wrap: $wrap;
   align-items: $align;
   justify-content: $justify;
+  @if ($flex != initial) {
+    flex: $flex;
+  }
+  @if ($gap != initial) {
+    gap: $gap;
+  }
+  @if ($flex-grow != initial) {
+    flex-grow: $flex-grow;
+  }
+  @if ($flex-shrink != initial) {
+    flex-shrink: $flex-shrink;
+  }
+  @if ($flex-basis != initial) {
+    flex-basis: $flex-basis;
+  }
 }
 
 @mixin border(

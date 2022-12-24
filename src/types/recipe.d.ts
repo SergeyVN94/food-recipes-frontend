@@ -10,14 +10,22 @@ export type RecipeIngredient = {
 };
 
 export type RecipeStep = {
-  description: string;
-  images?: Image[];
-  step: number;
+  order: number;
+  content: string;
 };
 
 export type RecipeIngredientItem = {
   ingredientId: RecipeIngredient['id'];
   amount: string; // количество ингредиента
+};
+
+export type RecipePayload = {
+  title: string;
+  description: string;
+  images: string[];
+  steps: RecipeStep[];
+  ingredients: RecipeIngredientItem[];
+  files: File[];
 };
 
 export type Recipe = {

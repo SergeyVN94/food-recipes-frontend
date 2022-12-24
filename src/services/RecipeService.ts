@@ -62,7 +62,7 @@ class RecipeService extends ListService<Recipe, RecipeFilter, RecipePayload> {
         _.entries(payload).forEach(([key, value]) => {
           switch (key) {
             case 'images':
-              (value as File[]).forEach(f => formData.append('image', f));
+              (value as string[]).forEach(i => formData.append('image', i));
               break;
             case 'steps': {
               const steps = JSON.stringify(value);
@@ -74,9 +74,14 @@ class RecipeService extends ListService<Recipe, RecipeFilter, RecipePayload> {
               formData.set('ingredients', steps);
               break;
             }
+            case 'files': {
+              const steps = JSON.stringify(value);
+              formData.set('file', steps);
+              break;
+            }
 
             default:
-              formData.set(key, value as string);
+              (value as File[]).forEach(f => formData.append('file', f));
           }
         });
 

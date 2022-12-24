@@ -3,6 +3,10 @@
   @include flex($dir: column, $align: flex-start, $justify: flex-start, $wrap: nowrap);
 }
 
-.main {
+.page-content {
   @include size($w: 100%);
+}
+
+.main {
+  padding-top: $spacing_ver-extra-large;
 }

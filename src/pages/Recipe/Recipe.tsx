@@ -6,7 +6,6 @@ import _ from 'lodash';
 
 import Preloader from 'components/ui/Preloader';
 import AppLayout from 'layouts/AppLayout';
-import ContainerContent from 'components/ui/ContainerContent';
 import { recipesStore } from 'store';
 
 import RecipeFullCard from './components/RecipeFullCard';
@@ -31,12 +30,8 @@ const Recipe: FC<RecipeProps> = observer(() => {
 
   return (
     <AppLayout title={recipe ? recipe.title : 'Страница рецепта'}>
-      <ContainerContent>
-        <div className={cx('page-wrap')}>
-          <Preloader size='large' position='center' visible={recipesStore.loading} />
-          { recipe && <RecipeFullCard recipe={recipe} /> }
-        </div>
-      </ContainerContent>
+      <Preloader size='large' position='center' visible={recipesStore.loading} />
+      { recipe && <RecipeFullCard recipe={recipe} /> }
     </AppLayout>
   );
 });

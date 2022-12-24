@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { ChangeEvent, RefObject, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import _ from 'lodash';
 
@@ -22,20 +22,22 @@ const updateHeight = (ev: React.ChangeEvent<HTMLTextAreaElement>, maxRows?: numb
 const TextAreaAutoHeight: React.FC<{
   children: JSX.Element;
   maxRows?: number;
-}> = observer(({ children, maxRows }) => {
-  const child = React.Children.only(children);
-  if (!child) return null;
+  inputRef: RefObject<HTMLTextAreaElement>;
+}> = observer(({ children, maxRows, inputRef }) => {
+  useEffect(() => {
+    const handleChange = (ev: Event) => updateHeight(
+      ev as unknown as ChangeEvent<HTMLTextAreaElement>,
+      maxRows,
+    );
 
-  const onChange = useCallback((ev: React.ChangeEvent<HTMLTextAreaElement>) => {
-    updateHeight(ev, maxRows);
-    if (child.props.onChange) child.props.onChange(ev);
-  }, [child.props.onChange, maxRows]);
+    if (inputRef.current) inputRef.current.addEventListener('input', handleChange);
 
-  return React.cloneElement(child, {
-    ...child.props,
-    onChange,
-    style: { ...child.props.style, resize: 'none' },
-  });
+    return () => {
+      if (inputRef.current) inputRef.current.removeEventListener('input', handleChange);
+    };
+  }, [inputRef.current, maxRows]);
+
+  return children;
 });
 
 export default TextAreaAutoHeight;

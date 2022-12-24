@@ -7,14 +7,18 @@ export interface IAuthenticationService {
 }
 
 // сервис для неудаляемых данных, например настройки сайта
-export interface IApiDataService<T> {
+export interface IApiDataService<T, P = T> {
   fetch(): Promise<{ error: Error; } | { data: T; }>;
-  update(item: T): Promise<{ error: Error; } | { item: T }>;
+  update(payload: P): Promise<{ error: Error; } | { item: T }>;
 }
 
-export interface IListService<Item extends { id: unknown }, Filter> {
+export interface IListService<
+  Item extends { id: unknown },
+  Filter,
+  Payload = Omit<Item, 'id'>,
+> {
   fetchItems(filter?: Filter): Promise<{ error: Error; } | { data: Item[]; metadata?: unknown }>;
-  save(item: Item & { id: null }): Promise<{ error?: Error; } | { item: Item }>;
-  update(item: Item): Promise<{ error: Error; } | { item: Item }>;
+  save(payload: Payload): Promise<{ error?: Error; } | { item: Item }>;
+  update(payload: Payload & { id: Item['id'] }): Promise<{ error: Error; } | { item: Item }>;
   delete(id: Item['id']): Promise<{ error?: Error; }>;
 }

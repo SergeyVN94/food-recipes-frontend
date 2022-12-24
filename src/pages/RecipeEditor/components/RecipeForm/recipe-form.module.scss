@@ -1,0 +1,8 @@
+.form {
+  @include flex($dir: column, $align: flex-start, $gap: $spacing_ver-medium);
+  @include size($w: 100%, $maxW: 720px);
+
+  & > * {
+    width: 100%;
+  }
+}

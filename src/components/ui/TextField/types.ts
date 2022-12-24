@@ -1,3 +1,5 @@
+import { RefObject } from 'react';
+
 export interface ITextFieldProps {
   value: string;
   onChange: (value: string, name?: string) => void;
@@ -14,7 +16,10 @@ export interface ITextFieldProps {
   charLimit?: number;
   actionClear?: boolean;
   charLimitError?: boolean;
+  textarea?: boolean;
   elementBefore?: 'dnd' | 'emailIcon';
   elementAfter?: 'cancel-btn' | 'delete-btn' | 'search' | 'search-with-btn';
   autoComplete?: 'on' | 'off' | 'email' | 'password' | 'new-password' | 'date';
+  inputRef?: RefObject<HTMLInputElement | HTMLTextAreaElement>;
+  rows?: number;
 }
