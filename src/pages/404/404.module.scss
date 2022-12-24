@@ -1,0 +1,9 @@
+.wrapper {
+  @include flex($justify: center, $dir: column);
+  @include size($wh: 100%, $minW: 100vw, $minH: 100vh);
+  gap: $spacing_ver-medium;
+}
+
+.title {
+  @include font-h1;
+}
